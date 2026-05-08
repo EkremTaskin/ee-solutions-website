@@ -251,9 +251,8 @@
 
         <form class="msg-body" id="msgForm" action="https://api.web3forms.com/submit" method="POST">
           <input type="hidden" name="access_key" value="b0d9653e-60e6-44b9-8f60-4b5c540b17ca">
-          <input type="hidden" name="subject" value="New Strategy Call Request — E&E Solutions">
-          <input type="hidden" name="from_name" value="E&E Solutions Website">
-          <input type="hidden" name="replyto" value="email">
+          <input type="hidden" name="subject" value="New Strategy Call Request from E and E Solutions">
+          <input type="hidden" name="from_name" value="E and E Solutions Website">
           <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
 
           <div class="msg-row">
@@ -385,16 +384,19 @@
       });
       const data = await response.json();
 
+      console.log('Web3Forms response:', data);
+
       if (data.success) {
         msgForm.style.display = 'none';
         document.getElementById('msgSuccess').style.display = 'block';
       } else {
-        alert('Sorry, something went wrong. Please try again or use the contact page.');
+        alert('Form error: ' + (data.message || 'Unknown error') + '\n\nFull response logged to console.');
         msgSubmitBtn.disabled = false;
         msgSubmitBtn.innerHTML = originalLabel;
       }
     } catch (err) {
-      alert('Network error. Please try again or use the contact page.');
+      console.error('Network error:', err);
+      alert('Network error: ' + err.message);
       msgSubmitBtn.disabled = false;
       msgSubmitBtn.innerHTML = originalLabel;
     }

@@ -302,7 +302,7 @@
           </div>
           <h3 style="margin-bottom:8px;">Message sent.</h3>
           <p style="font-size:15px;color:var(--fg-muted);margin-bottom:4px;">We'll be in touch within one business day to schedule your call.</p>
-          <p style="font-size:13px;color:var(--fg-light);font-family:var(--font-mono);">info@eesolutions.info</p>
+          <p style="font-size:13px;color:var(--fg-light);font-family:var(--font-mono);">Check your inbox for confirmation.</p>
         </div>
       </div>
     </div>
@@ -389,12 +389,12 @@
         msgForm.style.display = 'none';
         document.getElementById('msgSuccess').style.display = 'block';
       } else {
-        alert('Sorry, something went wrong. Please email us directly at info@eesolutions.info');
+        alert('Sorry, something went wrong. Please try again or use the contact page.');
         msgSubmitBtn.disabled = false;
         msgSubmitBtn.innerHTML = originalLabel;
       }
     } catch (err) {
-      alert('Network error. Please email us directly at info@eesolutions.info');
+      alert('Network error. Please try again or use the contact page.');
       msgSubmitBtn.disabled = false;
       msgSubmitBtn.innerHTML = originalLabel;
     }

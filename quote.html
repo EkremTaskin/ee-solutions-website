@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Request a Quote — E&E Solutions</title>
+  <meta name="description" content="Tell us about your business and what you're trying to fix. We'll send a custom proposal with fixed pricing within 24 hours." />
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    .quote-layout {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 48px;
+      align-items: start;
+      padding-top: calc(60px + 64px);
+      padding-bottom: 80px;
+    }
+
+    /* Progress */
+    .progress-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 40px;
+    }
+    .progress-step {
+      flex: 1;
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      margin-right: 4px;
+      transition: background 0.3s;
+      position: relative;
+    }
+    .progress-step.done { background: var(--fg); }
+    .progress-step.active { background: var(--accent); }
+    .progress-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--fg-light);
+      margin-bottom: 8px;
+    }
+    .progress-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 32px;
+      letter-spacing: -0.02em;
+    }
+
+    /* Form steps */
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+
+    /* Pack selector */
+    .pack-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .pack-option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      user-select: none;
+    }
+    .pack-option:hover { border-color: var(--fg-muted); }
+    .pack-option.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .pack-option input[type="radio"] { display: none; }
+    .pack-option-radio {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s;
+    }
+    .pack-option.selected .pack-option-radio {
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+    .pack-option.selected .pack-option-radio::after {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #fff;
+    }
+    .pack-option-info { flex: 1; }
+    .pack-option-name { font-size: 15px; font-weight: 600; color: var(--fg); }
+    .pack-option-price { font-size: 13px; color: var(--fg-muted); }
+
+    /* Multi-select tags */
+    .tag-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag-opt {
+      padding: 8px 16px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--fg-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .tag-opt:hover { border-color: var(--fg-muted); color: var(--fg); }
+    .tag-opt.selected {
+      background: var(--fg);
+      border-color: var(--fg);
+      color: #fff;
+    }
+
+    /* Navigation buttons */
+    .form-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .step-counter {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--fg-light);
+    }
+
+    /* Form groups */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* Sidebar */
+    .quote-sidebar {
+      position: sticky;
+      top: 80px;
+    }
+    .sidebar-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px;
+      margin-bottom: 16px;
+    }
+    .sidebar-card h4 { font-size: 16px; margin-bottom: 16px; }
+    .sidebar-promise {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sidebar-promise-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .sidebar-promise-item .check {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: oklch(94% 0.06 145);
+      color: oklch(45% 0.15 145);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .sidebar-promise-item p { font-size: 14px; }
+
+    /* Confirmation */
+    .confirmation {
+      display: none;
+      text-align: center;
+      padding: 64px 0;
+    }
+    .confirmation.show { display: block; }
+    .confirmation-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: oklch(94% 0.06 145);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+    .confirmation h2 { margin-bottom: 12px; }
+    .confirmation p { font-size: 17px; max-width: 440px; margin: 0 auto 32px; }
+
+    @media (max-width: 900px) {
+      .quote-layout { grid-template-columns: 1fr; }
+      .quote-sidebar { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      E&E Solutions
+    </a>
+    <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="quote.html" class="btn btn-outline" style="padding:9px 18px;font-size:14px;">Get a Quote</a>
+      <a href="book-a-call.html" class="btn btn-primary" style="padding:9px 18px;font-size:14px;">Book a Call</a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="services.html">Services</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="quote.html">Get a Quote</a>
+  <a href="book-a-call.html" style="color:var(--accent);font-weight:600;">Book a Call →</a>
+</div>
+
+<div class="container">
+  <div class="quote-layout">
+
+    <!-- FORM COLUMN -->
+    <div>
+      <!-- Progress bar -->
+      <div id="progressBar" class="progress-bar">
+        <div class="progress-step active" id="ps1"></div>
+        <div class="progress-step" id="ps2"></div>
+        <div class="progress-step" id="ps3"></div>
+        <div class="progress-step" id="ps4"></div>
+        <div class="progress-step" id="ps5"></div>
+      </div>
+
+      <div id="quoteForm">
+
+        <!-- STEP 1: Pack -->
+        <div class="form-step active" id="step1">
+          <div class="progress-label">Step 1 of 5</div>
+          <div class="progress-title">Which service are you interested in?</div>
+          <div class="pack-options">
+            <label class="pack-option" onclick="selectPack(this)">
+              <input type="radio" name="pack" value="operations-audit" />
+              <div class="pack-option-radio"></div>
+              <div class="pack-option-info">
+                <div class="pack-option-name">Operations Audit</div>
+                <div class="pack-option-price">1 week · custom quote</div>
+              </div>
+            </label>
+
+            <label class="pack-option" onclick="selectPack(this)">
+              <input type="radio" name="pack" value="analytics-dashboard" />
+              <div class="pack-option-radio"></div>
+              <div class="pack-option-info">
+                <div class="pack-option-name">Analytics & Dashboard</div>
+                <div class="pack-option-price">3 weeks · custom quote</div>
+              </div>
+            </label>
+            <label class="pack-option" onclick="selectPack(this)">
+              <input type="radio" name="pack" value="tailored-software" />
+              <div class="pack-option-radio"></div>
+              <div class="pack-option-info">
+                <div class="pack-option-name">Tailored Software Build</div>
+                <div class="pack-option-price">4–8 weeks · custom quote</div>
+              </div>
+            </label>
+            <label class="pack-option" onclick="selectPack(this)">
+              <input type="radio" name="pack" value="website-design" />
+              <div class="pack-option-radio"></div>
+              <div class="pack-option-info">
+                <div class="pack-option-name">Website Design & Build</div>
+                <div class="pack-option-price">2–4 weeks · custom quote</div>
+              </div>
+            </label>
+            <label class="pack-option" onclick="selectPack(this)">
+              <input type="radio" name="pack" value="not-sure" />
+              <div class="pack-option-radio"></div>
+              <div class="pack-option-info">
+                <div class="pack-option-name">Not sure / custom project</div>
+                <div class="pack-option-price">We'll help you figure out the best fit</div>
+              </div>
+            </label>
+          </div>
+          <div class="form-nav">
+            <span class="step-counter">Step 1 of 5</span>
+            <button class="btn btn-primary" onclick="nextStep(2)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Business -->
+        <div class="form-step" id="step2">
+          <div class="progress-label">Step 2 of 5</div>
+          <div class="progress-title">About your business.</div>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="bizName">Business name</label>
+                <input class="form-input" id="bizName" type="text" placeholder="Acme Co." />
+              </div>
+              <div class="form-group">
+                <label for="bizSize">Team size</label>
+                <select class="form-select" id="bizSize">
+                  <option value="">Select size</option>
+                  <option>1–5 employees</option>
+                  <option>6–20 employees</option>
+                  <option>21–50 employees</option>
+                  <option>51–100 employees</option>
+                  <option>101–200 employees</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="industry">Industry</label>
+              <select class="form-select" id="industry">
+                <option value="">Select your industry</option>
+                <option>Logistics & Freight</option>
+                <option>Healthcare / Medical Clinic</option>
+                <option>Real Estate</option>
+                <option>Professional Services</option>
+                <option>Retail / E-commerce</option>
+                <option>Construction / Trades</option>
+                <option>Finance / Accounting</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-nav">
+            <button class="btn btn-ghost" onclick="prevStep(1)">← Back</button>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span class="step-counter">Step 2 of 5</span>
+              <button class="btn btn-primary" onclick="nextStep(3)">Continue →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: Problem -->
+        <div class="form-step" id="step3">
+          <div class="progress-label">Step 3 of 5</div>
+          <div class="progress-title">What problem are you solving?</div>
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div class="form-group">
+              <label>What's slowing you down? (select all that apply)</label>
+              <div class="tag-options" style="margin-top:8px;">
+                <span class="tag-opt" onclick="toggleTag(this)">Manual data entry</span>
+                <span class="tag-opt" onclick="toggleTag(this)">Spreadsheet chaos</span>
+                <span class="tag-opt" onclick="toggleTag(this)">Slow invoicing</span>
+                <span class="tag-opt" onclick="toggleTag(this)">Onboarding takes too long</span>
+                <span class="tag-opt" onclick="toggleTag(this)">No visibility into performance</span>
+                <span class="tag-opt" onclick="toggleTag(this)">Disconnected tools</span>
+                <span class="tag-opt" onclick="toggleTag(this)">Outdated website</span>
+                <span class="tag-opt" onclick="toggleTag(this)">Client communication gaps</span>
+                <span class="tag-opt" onclick="toggleTag(this)">Reporting takes too long</span>
+                <span class="tag-opt" onclick="toggleTag(this)">No central dashboard</span>
+                <span class="tag-opt" onclick="toggleTag(this)">Something else</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="problemText">Describe it in your own words</label>
+              <textarea class="form-textarea" id="problemText" placeholder="What's the specific thing that's broken or slowing you down? The more detail, the better our proposal will be."></textarea>
+            </div>
+          </div>
+          <div class="form-nav">
+            <button class="btn btn-ghost" onclick="prevStep(2)">← Back</button>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span class="step-counter">Step 3 of 5</span>
+              <button class="btn btn-primary" onclick="nextStep(4)">Continue →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4: Timeline + Budget -->
+        <div class="form-step" id="step4">
+          <div class="progress-label">Step 4 of 5</div>
+          <div class="progress-title">Timeline and project scope.</div>
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div class="form-group">
+              <label>How urgent is this?</label>
+              <div class="pack-options" style="margin-top:8px;">
+                <label class="pack-option" onclick="selectPack(this)">
+                  <input type="radio" name="urgency" value="asap" />
+                  <div class="pack-option-radio"></div>
+                  <div class="pack-option-info">
+                    <div class="pack-option-name">ASAP — this is costing us now</div>
+                  </div>
+                </label>
+                <label class="pack-option" onclick="selectPack(this)">
+                  <input type="radio" name="urgency" value="1-2months" />
+                  <div class="pack-option-radio"></div>
+                  <div class="pack-option-info">
+                    <div class="pack-option-name">In the next 1–2 months</div>
+                  </div>
+                </label>
+                <label class="pack-option" onclick="selectPack(this)">
+                  <input type="radio" name="urgency" value="planning" />
+                  <div class="pack-option-radio"></div>
+                  <div class="pack-option-info">
+                    <div class="pack-option-name">Just planning — not urgent yet</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="budget">How did you hear about us?</label>
+              <select class="form-select" id="budget">
+                <option value="">Select one</option>
+                <option>Referral from a colleague</option>
+                <option>Web search</option>
+                <option>Social media</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-nav">
+            <button class="btn btn-ghost" onclick="prevStep(3)">← Back</button>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span class="step-counter">Step 4 of 5</span>
+              <button class="btn btn-primary" onclick="nextStep(5)">Continue →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 5: Contact -->
+        <div class="form-step" id="step5">
+          <div class="progress-label">Step 5 of 5</div>
+          <div class="progress-title">How should we reach you?</div>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First name</label>
+                <input class="form-input" id="firstName" type="text" placeholder="Alex" />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input class="form-input" id="lastName" type="text" placeholder="Johnson" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Work email</label>
+              <input class="form-input" id="email" type="email" placeholder="alex@yourcompany.com" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone (optional)</label>
+              <input class="form-input" id="phone" type="tel" placeholder="(555) 000-0000" />
+            </div>
+            <div class="form-group">
+              <label>Preferred contact method</label>
+              <div class="tag-options" style="margin-top:8px;">
+                <span class="tag-opt" onclick="selectContactMethod(this)">Email</span>
+                <span class="tag-opt" onclick="selectContactMethod(this)">Phone call</span>
+                <span class="tag-opt" onclick="selectContactMethod(this)">Text</span>
+                <span class="tag-opt" onclick="selectContactMethod(this)">Video call</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-nav">
+            <button class="btn btn-ghost" onclick="prevStep(4)">← Back</button>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span class="step-counter">Step 5 of 5</span>
+              <button class="btn btn-accent" onclick="submitForm()" style="padding:12px 28px;">
+                Submit Request →
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CONFIRMATION -->
+      <div class="confirmation" id="confirmation">
+        <div class="confirmation-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M6 16l7 7L26 9" stroke="oklch(45% 0.15 145)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="section-label">Request received</span>
+        <h2>You'll hear from us within 24 hours.</h2>
+        <p>We'll review your details and send a custom proposal with fixed pricing to your inbox. No guesses. No ranges. A real number.</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+          <a href="book-a-call.html" class="btn btn-accent" style="font-size:15px;padding:14px 28px;">Or book a call now →</a>
+          <a href="index.html" class="btn btn-outline">Back to home</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="quote-sidebar">
+      <div class="sidebar-card">
+        <h4>What happens next</h4>
+        <div class="sidebar-promise">
+          <div class="sidebar-promise-item">
+            <div class="check">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p>We review your request — usually same day.</p>
+          </div>
+          <div class="sidebar-promise-item">
+            <div class="check">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p>Custom proposal with fixed pricing in your inbox <strong>within 24 hours.</strong></p>
+          </div>
+          <div class="sidebar-promise-item">
+            <div class="check">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p>No obligation. No sales call required. Just a real proposal.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Prefer to talk first?</h4>
+        <p style="font-size:14px;margin-bottom:16px;">Book a free 30-min strategy call instead. We'll understand your situation and get the proposal over after.</p>
+        <a href="book-a-call.html" class="btn btn-primary" style="width:100%;justify-content:center;">Book a Call →</a>
+      </div>
+
+      <div style="background:var(--accent-soft);border:1px solid oklch(90% 0.08 248);border-radius:var(--r-lg);padding:20px 24px;">
+        <div class="chip" style="margin-bottom:12px;">Founding Offer</div>
+        <p style="font-size:14px;color:var(--fg);">First 5 clients get a <strong>special founding rate</strong> in exchange for a testimonial after delivery.</p>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><div class="footer-logo-mark">E&</div>E&E Solutions</div>
+        <p class="footer-tagline">Operations and web solutions, tailored for small business.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="services.html#operations-audit">Operations Audit</a></li>
+        <li><a href="services.html#analytics-dashboard">Analytics & Dashboard</a></li>
+        <li><a href="services.html#tailored-software">Tailored Software</a></li>
+        <li><a href="services.html#website-design">Website Design</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Get started</h4><ul>
+        <li><a href="book-a-call.html">Book a Strategy Call</a></li>
+        <li><a href="quote.html">Request a Quote</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 E&E Solutions LLC. All rights reserved.</span>
+      <div style="display:flex;gap:24px;"><a href="#">Privacy Policy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+
+  let currentStep = 1;
+
+  function nextStep(n) {
+    document.getElementById('step' + currentStep).classList.remove('active');
+    document.getElementById('ps' + currentStep).classList.remove('active');
+    document.getElementById('ps' + currentStep).classList.add('done');
+    currentStep = n;
+    document.getElementById('step' + currentStep).classList.add('active');
+    document.getElementById('ps' + currentStep).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function prevStep(n) {
+    document.getElementById('step' + currentStep).classList.remove('active');
+    document.getElementById('ps' + currentStep).classList.remove('active');
+    currentStep = n;
+    document.getElementById('step' + currentStep).classList.add('active');
+    document.getElementById('ps' + currentStep).classList.add('active');
+    document.getElementById('ps' + (n + 1)).classList.remove('done');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function selectPack(label) {
+    const siblings = label.closest('.pack-options').querySelectorAll('.pack-option');
+    siblings.forEach(s => s.classList.remove('selected'));
+    label.classList.add('selected');
+  }
+
+  function toggleTag(el) {
+    el.classList.toggle('selected');
+  }
+
+  function selectContactMethod(el) {
+    const siblings = el.closest('.tag-options').querySelectorAll('.tag-opt');
+    siblings.forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function submitForm() {
+    const email = document.getElementById('email').value;
+    if (!email || !email.includes('@')) {
+      document.getElementById('email').style.borderColor = '#ef4444';
+      document.getElementById('email').focus();
+      return;
+    }
+    document.getElementById('quoteForm').style.display = 'none';
+    document.getElementById('progressBar').style.display = 'none';
+    document.getElementById('confirmation').classList.add('show');
+    // Mark all steps done
+    for (let i = 1; i <= 5; i++) {
+      document.getElementById('ps' + i).classList.add('done');
+      document.getElementById('ps' + i).classList.remove('active');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

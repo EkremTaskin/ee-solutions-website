@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works — E&E Solutions</title>
+  <meta name="description" content="From your first call to a live system in weeks. Fixed scope, clear deliverables, weekly check-ins, and 30 days of free support after launch." />
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    /* Timeline */
+    .timeline {
+      position: relative;
+      margin-top: 64px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 39px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+    .timeline-item {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-marker {
+      width: 80px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .timeline-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg);
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .timeline-item:first-child .timeline-num {
+      background: var(--fg);
+      color: #fff;
+      border-color: transparent;
+    }
+    .timeline-content {
+      flex: 1;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+    .timeline-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg-light);
+      margin-bottom: 8px;
+    }
+    .timeline-content h3 { font-size: 22px; margin-bottom: 12px; }
+    .timeline-content p { font-size: 16px; max-width: 560px; }
+    .timeline-detail {
+      margin-top: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 20px 24px;
+      max-width: 560px;
+    }
+    .timeline-detail ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .timeline-detail ul li {
+      font-size: 14px;
+      color: var(--fg-muted);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .timeline-detail ul li::before {
+      content: '→';
+      color: var(--accent);
+      flex-shrink: 0;
+      font-weight: 600;
+    }
+
+    /* Proposal mockup */
+    .proposal-mockup {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      margin-top: 48px;
+      box-shadow: var(--shadow-lg);
+    }
+    .proposal-top {
+      background: var(--fg);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .proposal-top-left { color: rgba(255,255,255,0.6); font-size: 14px; }
+    .proposal-top-left strong { color: #fff; display: block; font-size: 16px; margin-bottom: 2px; }
+    .proposal-status {
+      background: #22c55e;
+      color: #fff;
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .proposal-body { padding: 28px; }
+    .proposal-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+    }
+    .proposal-row:last-child { border-bottom: none; }
+    .proposal-row-label { color: var(--fg-muted); }
+    .proposal-row-val { font-weight: 600; color: var(--fg); }
+    .proposal-total {
+      background: var(--fg);
+      padding: 20px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .proposal-total-label { color: rgba(255,255,255,0.5); font-size: 14px; }
+    .proposal-total-val { color: #fff; font-size: 24px; font-weight: 800; }
+
+    /* Communication cadence */
+    .cadence-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .cadence-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px;
+    }
+    .cadence-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--r-sm);
+      background: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .cadence-card h4 { font-size: 17px; margin-bottom: 8px; }
+    .cadence-card p { font-size: 14px; }
+
+    /* Policy */
+    .policy-card {
+      background: var(--fg);
+      border-radius: var(--r-lg);
+      padding: 40px;
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .policy-item h4 { color: #fff; font-size: 18px; margin-bottom: 12px; }
+    .policy-item p { color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.7; }
+
+    @media (max-width: 768px) {
+      .timeline::before { left: 27px; }
+      .timeline-marker { width: 56px; }
+      .timeline-num { width: 44px; height: 44px; font-size: 12px; }
+      .cadence-grid { grid-template-columns: 1fr; }
+      .policy-card { grid-template-columns: 1fr; }
+      .timeline-item { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      E&E Solutions
+    </a>
+    <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="how-it-works.html" class="active">How It Works</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="quote.html" class="btn btn-outline" style="padding:9px 18px;font-size:14px;">Get a Quote</a>
+      <a href="book-a-call.html" class="btn btn-primary" style="padding:9px 18px;font-size:14px;">Book a Call</a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="services.html">Services</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="quote.html">Get a Quote</a>
+  <a href="book-a-call.html" style="color:var(--accent);font-weight:600;">Book a Call →</a>
+</div>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="section-label">Process</span>
+    <h1>From first call to live system.</h1>
+    <p>Four steps. Fixed scope. Clear deliverables. No surprises — ever.</p>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<section>
+  <div class="container">
+    <span class="section-label">The process</span>
+    <div class="section-head">
+      <h2>Here's exactly what happens.</h2>
+    </div>
+    <div class="timeline reveal">
+
+      <div class="timeline-item">
+        <div class="timeline-marker">
+          <div class="timeline-num">1</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-tag">Day 1</div>
+          <h3>Book a 30-min strategy call</h3>
+          <p>Pick a time that works. The call is free and there's no pitch. We'll ask about your operations, understand what's broken, and tell you honestly whether we can help.</p>
+          <div class="timeline-detail">
+            <ul>
+              <li>Tell us what's slowing you down</li>
+              <li>We ask questions — you talk through how work gets done today</li>
+              <li>We'll identify the highest-value place to start</li>
+              <li>If we're not the right fit, we'll say so</li>
+            </ul>
+          </div>
+          <div style="margin-top:20px;">
+            <a href="book-a-call.html" class="btn btn-accent">Book your free call</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-marker">
+          <div class="timeline-num">2</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-tag">Within 24 hours</div>
+          <h3>Custom proposal with clear scope & timeline</h3>
+          <p>You'll receive a written proposal with a clear scope, specific deliverables, and a delivery timeline. No vague estimates, no hourly billing, no "it depends."</p>
+          <div class="timeline-detail">
+            <ul>
+              <li>Specific deliverables listed out — no vague language</li>
+              <li>Transparent pricing — what you see is what you pay</li>
+              <li>Exact timeline with milestones</li>
+              <li>What's in scope and what's not</li>
+              <li>Clear next step to approve and kick off</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-marker">
+          <div class="timeline-num">3</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-tag">Weeks 1–N</div>
+          <h3>Approve and we start — weekly check-ins</h3>
+          <p>Once you approve the proposal, we begin immediately. You'll hear from us every week — no wondering what's happening.</p>
+          <div class="timeline-detail">
+            <ul>
+              <li>Weekly Loom video update so you can watch progress on your own time</li>
+              <li>Dedicated communications channel for quick questions</li>
+              <li>Milestone approvals before we move forward</li>
+              <li>You review before anything goes live</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-marker">
+          <div class="timeline-num">4</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-tag">Launch day</div>
+          <h3>Launch + 30 days of free support</h3>
+          <p>We go live only when you're satisfied. After launch, we stay on-call for 30 days — free. If anything needs fixing, we fix it.</p>
+          <div class="timeline-detail">
+            <ul>
+              <li>Launch only after your sign-off</li>
+              <li>Full handoff documentation</li>
+              <li>30 days free support — bugs fixed at no charge</li>
+              <li>Optional ongoing retainer for maintenance and updates</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROPOSAL MOCKUP -->
+<section style="background:var(--bg);">
+  <div class="container">
+    <span class="section-label">Sample proposal</span>
+    <div class="section-head">
+      <h2>Know exactly what you're getting.</h2>
+      <p>Every proposal is clear, specific, and fixed. Here's what one looks like.</p>
+    </div>
+    <div class="proposal-mockup reveal" style="max-width:600px;">
+      <div class="proposal-top">
+        <div class="proposal-top-left">
+          <strong>Tailored Software Build</strong>
+          Acme Logistics Co. — Proposed May 2026
+        </div>
+        <span class="proposal-status">Approved</span>
+      </div>
+      <div class="proposal-body">
+        <div class="proposal-row">
+          <span class="proposal-row-label">Scope</span>
+          <span class="proposal-row-val">3 automations (invoice, onboarding, reporting)</span>
+        </div>
+        <div class="proposal-row">
+          <span class="proposal-row-label">Timeline</span>
+          <span class="proposal-row-val">2 weeks from kickoff</span>
+        </div>
+        <div class="proposal-row">
+          <span class="proposal-row-label">Integrations</span>
+          <span class="proposal-row-val">QuickBooks + HubSpot + Slack</span>
+        </div>
+        <div class="proposal-row">
+          <span class="proposal-row-label">Milestones</span>
+          <span class="proposal-row-val">Week 1 review · Week 2 launch</span>
+        </div>
+        <div class="proposal-row">
+          <span class="proposal-row-label">Post-launch support</span>
+          <span class="proposal-row-val">30 days included</span>
+        </div>
+      </div>
+      <div class="proposal-total">
+        <span class="proposal-total-label">Custom quote — all in</span>
+        <span class="proposal-total-val">Custom quote</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNICATION CADENCE -->
+<section>
+  <div class="container">
+    <span class="section-label">Communication</span>
+    <div class="section-head">
+      <h2>You're never in the dark.</h2>
+      <p>We over-communicate by design. Here's how we stay in sync.</p>
+    </div>
+    <div class="cadence-grid reveal">
+      <div class="cadence-card">
+        <div class="cadence-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="5" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9l8 5 8-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4>Weekly Loom updates</h4>
+        <p>A short screen-recorded video every week showing exactly what was built, what's next, and any decisions you need to make.</p>
+      </div>
+      <div class="cadence-card">
+        <div class="cadence-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4h14a2 2 0 012 2v8a2 2 0 01-2 2H8l-4 3V6a2 2 0 012-2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Dedicated communications channel</h4>
+        <p>You will have a direct channel for quick questions, feedback, and async communication throughout the project.</p>
+      </div>
+      <div class="cadence-card">
+        <div class="cadence-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M11 7v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4>Milestone check-ins</h4>
+        <p>A video call at each project milestone for review and approval before we move to the next phase.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POLICY -->
+<section>
+  <div class="container">
+    <span class="section-label">Our commitments</span>
+    <div class="section-head">
+      <h2>Our promise to you.</h2>
+    </div>
+    <div class="policy-card reveal">
+      <div class="policy-item">
+        <h4>Fixed scope. Transparent pricing.</h4>
+        <p>We scope every project before you pay a dollar. The number in the proposal is the number on the invoice. If we miss something in the scope, that's on us — not on you.</p>
+      </div>
+      <div class="policy-item">
+        <h4>No launch without your approval.</h4>
+        <p>Nothing goes live until you sign off. We don't flip switches and ask forgiveness later. Every milestone is reviewed and approved before we move forward.</p>
+      </div>
+      <div class="policy-item">
+        <h4>30 days of free post-launch support.</h4>
+        <p>Every project includes 30 days of support after launch. If something breaks or doesn't work as agreed, we fix it at no charge. No tickets. No wait queue.</p>
+      </div>
+      <div class="policy-item">
+        <h4>If it's not right, we make it right.</h4>
+        <p>If we deliver something that doesn't match the agreed scope, we'll redo the work. We don't hide behind fine print.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--bg);">
+  <div class="container">
+    <span class="section-label">FAQ</span>
+    <div class="section-head">
+      <h2>More questions answered.</h2>
+    </div>
+    <div class="faq-list reveal" style="max-width:720px;">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How do payments work?
+          <svg class="faq-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">We typically split projects into milestone-based payments — all of this is spelled out clearly in the proposal before you sign anything.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What if the scope changes mid-project?
+          <svg class="faq-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">If you want to add something outside the original scope, we'll scope and price the addition separately before starting it. We never just absorb scope creep into the original price — or surprise you with extra charges after the fact.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Do I need to be available throughout the project?
+          <svg class="faq-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">We try to keep your time commitment minimal. Most projects require 2–3 hours of your time per week for reviews and approvals. You'll have a single point of contact on our side, and we'll batch questions so you're not constantly interrupted.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Who owns the work after delivery?
+          <svg class="faq-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">You do. All code, designs, and deliverables transfer to you fully upon final payment. No licensing fees, no vendor lock-in. You can take what we build to any other developer in the future.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What timezone do you work in?
+          <svg class="faq-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">We work with clients across all US time zones. We're flexible on meeting times and asynchronous-first by default, so time zones are rarely an issue.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section style="background:var(--fg);text-align:center;padding:var(--section-pad) 0;">
+  <div class="container">
+    <span class="section-label" style="color:rgba(255,255,255,0.35);">Get started</span>
+    <h2 style="color:#fff;margin-bottom:16px;">Ready to see how it works firsthand?</h2>
+    <p style="font-size:18px;color:rgba(255,255,255,0.5);max-width:480px;margin:0 auto 40px;">Book a free 30-min call. No pitch. Just an honest conversation about your operations.</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+      <a href="book-a-call.html" class="btn btn-accent" style="font-size:16px;padding:16px 32px;">Book a Free 30-Min Call</a>
+      <a href="quote.html" style="font-size:14px;color:rgba(255,255,255,0.45);font-weight:500;" onmouseover="this.style.color='rgba(255,255,255,0.8)'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">or request a quote →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><div class="footer-logo-mark">E&</div>E&E Solutions</div>
+        <p class="footer-tagline">Operations and web solutions, tailored for small business. Serving clients remotely across the US.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="services.html#operations-audit">Operations Audit</a></li>
+        <li><a href="services.html#analytics-dashboard">Analytics & Dashboard</a></li>
+        <li><a href="services.html#tailored-software">Tailored Software</a></li>
+        <li><a href="services.html#website-design">Website Design</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Get started</h4><ul>
+        <li><a href="book-a-call.html">Book a Strategy Call</a></li>
+        <li><a href="quote.html">Request a Quote</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 E&E Solutions LLC. All rights reserved.</span>
+      <div style="display:flex;gap:24px;"><a href="#">Privacy Policy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

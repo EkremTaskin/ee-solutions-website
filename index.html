@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E&E Solutions — Operations & Web Solutions for Small Business</title>
+  <meta name="description" content="E&E Solutions helps small businesses fix operations with tailored software, analytics dashboards, and custom websites. Custom quotes within 24 hours." />
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    /* Hero */
+    .hero {
+      padding-top: calc(60px + 96px);
+      padding-bottom: 96px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 40%, oklch(96% 0.05 248) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, oklch(97% 0.03 200) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 14px 6px 8px;
+      margin-bottom: 32px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg-muted);
+    }
+    .hero-eyebrow .dot {
+      width: 6px; height: 6px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 { max-width: 800px; margin-bottom: 24px; }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: clamp(17px, 2vw, 21px);
+      color: var(--fg-muted);
+      max-width: 540px;
+      margin-bottom: 40px;
+      line-height: 1.65;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .hero-secondary {
+      font-size: 14px;
+      color: var(--fg-muted);
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.15s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .hero-secondary:hover { color: var(--fg); }
+
+    /* Pricing strip */
+    .pricing-strip {
+      background: var(--fg);
+      color: rgba(255,255,255,0.7);
+      padding: 16px 0;
+    }
+    .pricing-strip-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+    .pricing-strip-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pricing-strip-item strong { color: #fff; }
+    .pricing-strip-item .sep {
+      width: 1px; height: 16px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* Trust strip */
+    .trust-strip {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-strip-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--fg-muted);
+    }
+    .trust-icon {
+      width: 18px; height: 18px;
+      color: var(--accent);
+    }
+
+    /* Problem section */
+    .problem-section {
+      background: var(--fg);
+      color: #fff;
+    }
+    .problem-section .section-label { color: rgba(255,255,255,0.4); }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      margin-top: 56px;
+    }
+    .problem-card {
+      padding: 40px 32px;
+      background: var(--fg);
+      transition: background 0.2s;
+    }
+    .problem-card:hover { background: #161923; }
+    .problem-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 20px;
+    }
+    .problem-card h3 { color: #fff; font-size: 20px; margin-bottom: 12px; }
+    .problem-card p { color: rgba(255,255,255,0.5); font-size: 15px; }
+    .problem-headline {
+      font-size: clamp(24px, 3.5vw, 42px);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      max-width: 700px;
+    }
+    .problem-headline em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    /* Services section */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .service-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+    .service-card.featured {
+      grid-column: span 2;
+      background: var(--fg);
+      border-color: transparent;
+    }
+    .service-card.featured h3 { color: #fff; }
+    .service-card.featured p { color: rgba(255,255,255,0.5); }
+    .service-card.featured .service-price { color: rgba(255,255,255,0.6); }
+    .service-card.featured .service-price strong { color: #fff; }
+    .service-card.featured:hover { border-color: rgba(255,255,255,0.1); }
+    .service-icon {
+      width: 40px; height: 40px;
+      border-radius: var(--r-sm);
+      background: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+    .service-card.featured .service-icon {
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.7);
+    }
+    .service-card h3 { font-size: 18px; margin-bottom: 8px; }
+    .service-card p { font-size: 14px; line-height: 1.65; flex: 1; }
+    .service-price {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--fg-light);
+    }
+    .service-price strong { font-size: 18px; font-weight: 700; color: var(--fg); }
+    .service-duration {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--fg-light);
+    }
+    .service-card.featured .service-duration { color: rgba(255,255,255,0.35); }
+    .services-footer {
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Why E&E */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 56px;
+    }
+    .why-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 36px 28px;
+    }
+    .why-num {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      font-weight: 500;
+      color: var(--border);
+      margin-bottom: 20px;
+    }
+    .why-card h3 { font-size: 19px; margin-bottom: 12px; }
+    .why-card p { font-size: 15px; }
+
+    /* How it works */
+    .hiw-section { background: var(--bg); }
+    .steps-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+      margin-top: 56px;
+    }
+    .steps-row::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(12.5% + 20px);
+      right: calc(12.5% + 20px);
+      height: 1px;
+      background: var(--border);
+    }
+    .step {
+      padding: 0 16px;
+      text-align: center;
+    }
+    .step-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg);
+      position: relative;
+      z-index: 1;
+    }
+    .step:first-child .step-num {
+      background: var(--fg);
+      color: #fff;
+      border-color: var(--fg);
+    }
+    .step h4 { font-size: 16px; margin-bottom: 8px; }
+    .step p { font-size: 14px; }
+
+    /* Founders */
+    .founders-section {
+      background: var(--bg);
+    }
+    .founders-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 56px;
+    }
+    .founder-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 36px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .founder-photo {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .founder-photo-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, var(--border) 0%, #d1d5db 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--fg-muted);
+      letter-spacing: -0.02em;
+    }
+    .founder-info h3 { font-size: 19px; margin-bottom: 4px; }
+    .founder-role {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+    .founder-info p { font-size: 15px; }
+
+    /* Pilot Banner */
+    .pilot-banner {
+      background: var(--accent);
+      padding: 24px 0;
+    }
+    .pilot-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .pilot-text strong {
+      display: block;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .pilot-text p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+    }
+    .pilot-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border-radius: var(--r-sm);
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .btn-white {
+      background: #fff;
+      color: var(--fg);
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: var(--r-sm);
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .btn-white:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* Industries */
+    .industries-section { background: var(--bg); }
+    .industries-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 40px;
+    }
+    .industry-tag {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--fg-muted);
+      cursor: default;
+      transition: all 0.15s;
+    }
+    .industry-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    /* Selected Builds */
+    .builds-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .build-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    }
+    .build-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+      border-color: oklch(70% 0.12 248);
+    }
+    .build-img-placeholder {
+      height: 180px;
+      background: var(--fg);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .build-img-placeholder .grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .build-img-placeholder .mock-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 28px;
+      background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 6px;
+    }
+    .build-img-placeholder .mock-bar span {
+      display: block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+    }
+    .build-img-placeholder .mock-cols {
+      position: absolute;
+      bottom: 16px; left: 14px; right: 14px;
+      top: 42px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 8px;
+    }
+    .build-img-placeholder .mock-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .build-img-placeholder .mock-sidebar span {
+      display: block;
+      height: 8px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.08);
+    }
+    .build-img-placeholder .mock-sidebar span.active {
+      background: var(--accent);
+      opacity: 0.6;
+    }
+    .build-img-placeholder .mock-main {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .build-img-placeholder .mock-chart {
+      flex: 1;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      align-items: flex-end;
+      padding: 8px 8px 4px;
+      gap: 4px;
+    }
+    .build-img-placeholder .mock-chart .bar {
+      flex: 1;
+      border-radius: 2px 2px 0 0;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+    .build-img-placeholder .mock-stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+    }
+    .build-img-placeholder .mock-stat {
+      border-radius: 4px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      height: 28px;
+    }
+    .build-img-label {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      text-align: center;
+      padding: 0 16px;
+      pointer-events: none;
+    }
+    .build-body {
+      padding: 24px 24px 28px;
+    }
+    .build-category {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .build-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: oklch(96% 0.07 80);
+      color: oklch(45% 0.15 80);
+      border-radius: 100px;
+      padding: 2px 10px 2px 6px;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .build-status .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: oklch(65% 0.18 80);
+      animation: pulse 2s infinite;
+    }
+    .build-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .build-card p {
+      font-size: 14px;
+      color: var(--fg-muted);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 900px) {
+      .builds-grid { grid-template-columns: 1fr; }
+    }
+
+    /* FAQ */
+    .faq-list { margin-top: 48px; }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--fg);
+      gap: 16px;
+      user-select: none;
+    }
+    .faq-q:hover { color: var(--accent); }
+    .faq-icon {
+      width: 20px; height: 20px;
+      flex-shrink: 0;
+      color: var(--fg-light);
+      transition: transform 0.2s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .faq-a-inner {
+      padding-bottom: 20px;
+      font-size: 15px;
+      color: var(--fg-muted);
+      line-height: 1.75;
+    }
+    .faq-item.open .faq-a { max-height: 300px; }
+
+    /* Final CTA */
+    .final-cta {
+      background: var(--fg);
+      text-align: center;
+      padding: var(--section-pad) 0;
+    }
+    .final-cta h2 { color: #fff; margin-bottom: 16px; }
+    .final-cta p { font-size: 18px; color: rgba(255,255,255,0.5); max-width: 480px; margin: 0 auto 40px; }
+    .final-cta-actions { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    /* Logos strip */
+    .logos-strip { background: var(--bg); }
+    .logos-label {
+      text-align: center;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg-light);
+      margin-bottom: 28px;
+    }
+    .logos-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .logo-placeholder {
+      height: 28px;
+      background: var(--border);
+      border-radius: 4px;
+      opacity: 0.5;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .service-card.featured { grid-column: span 2; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .steps-row { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .steps-row::before { display: none; }
+      .founders-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .problem-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card.featured { grid-column: span 1; }
+      .why-grid { grid-template-columns: 1fr; }
+      .steps-row { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .pilot-inner { flex-direction: column; align-items: flex-start; }
+      .founders-grid { grid-template-columns: 1fr; }
+      .founder-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      E&E Solutions
+    </a>
+    <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="quote.html" class="btn btn-outline" style="padding:9px 18px;font-size:14px;">Get a Quote</a>
+      <a href="book-a-call.html" class="btn btn-primary" style="padding:9px 18px;font-size:14px;">Book a Call</a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="services.html">Services</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="quote.html">Get a Quote</a>
+  <a href="book-a-call.html" style="color:var(--accent);font-weight:600;">Book a Call →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container hero-content">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      Now accepting new clients
+    </div>
+    <h1>Software built around<br/><em>your business</em> —<br/>not the other way around.</h1>
+    <p class="hero-sub">E&E Solutions fixes operations for small businesses. Tailored software, custom dashboards, and websites that actually fit how you work.</p>
+    <div class="hero-actions">
+      <a href="book-a-call.html" class="btn btn-accent">
+        Book a Free 30-Min Strategy Call
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="quote.html" class="hero-secondary">
+        or request a quote
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE STRIP -->
+<div class="pricing-strip">
+  <div class="container">
+    <div class="pricing-strip-inner">
+      <div class="pricing-strip-item">
+        <strong>Custom quotes within 24 hours.</strong>
+      </div>
+      <div class="pricing-strip-item">
+        <div class="sep"></div>
+        No surprise invoices.
+      </div>
+      <div class="pricing-strip-item">
+        <div class="sep"></div>
+        Fixed scope. Clear deliverables.
+      </div>
+      <div class="pricing-strip-item">
+        <div class="sep"></div>
+        Founder-led from first call to launch.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="container">
+    <div class="trust-strip-inner">
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M3 15c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Founder-led — you talk to the people building it
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 18 18" fill="none"><path d="M9 2L2 6v4c0 4 3 7 7 8 4-1 7-4 7-8V6L9 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Direct access — no account managers
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M9 5v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Remote-friendly across the US
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- PROBLEM SECTION -->
+<section class="problem-section">
+  <div class="container">
+    <span class="section-label">The problem</span>
+    <p class="problem-headline">Generic software doesn't fit.<br/>Enterprise tools are overkill.<br/><em>We build the in-between.</em></p>
+    <div class="problem-grid reveal">
+      <div class="problem-card">
+        <div class="problem-num">01</div>
+        <h3>Off-the-shelf doesn't fit</h3>
+        <p>You're forcing your business into software designed for someone else. Workarounds pile up. Nothing quite works.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">02</div>
+        <h3>Enterprise tools are overkill</h3>
+        <p>$50k implementations, 6-month rollouts, features you'll never use. That's not built for a 20-person team.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">03</div>
+        <h3>Every website looks the same</h3>
+        <p>Template sites blend in. They're slow, hard to update, and don't reflect how your business actually works.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE PACKS -->
+<section>
+  <div class="container">
+    <span class="section-label">Service packs</span>
+    <div class="section-head">
+      <h2>Five proven starting points, built for your business.</h2>
+      <p>We start with a pack and customize on top — faster than full custom, better fit than off-the-shelf.</p>
+    </div>
+    <div class="services-grid reveal">
+
+      <a class="service-card featured" href="services.html#operations-audit">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 6h12M4 10h8M4 14h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Operations Audit</h3>
+        <p>Process mapping, bottleneck identification, and a full recommendations doc. The low-risk way to start — and the fastest way to know exactly what to fix.</p>
+
+      </a>
+
+      <a class="service-card" href="services.html#analytics-dashboard">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 15l4-5 3 3 4-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Analytics & Dashboard</h3>
+        <p>Automate 3–5 manual processes: invoices, onboarding, reporting, and more.</p>
+
+      </a>
+
+      <a class="service-card" href="services.html#analytics-dashboard">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 15l4-5 3 3 4-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Analytics & Dashboard</h3>
+        <p>Custom dashboard pulling from your existing tools, with KPI tracking and automated alerts.</p>
+
+      </a>
+
+      <a class="service-card" href="services.html#tailored-software">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7 8l-3 2 3 2M13 8l3 2-3 2M11 6l-2 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Tailored Software Build</h3>
+        <p>Internal tools, client portals, and custom apps — built to match exactly how your business runs.</p>
+
+      </a>
+
+      <a class="service-card" href="services.html#website-design">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h14" stroke="currentColor" stroke-width="1.5"/><circle cx="6" cy="6" r="0.8" fill="currentColor"/><circle cx="9" cy="6" r="0.8" fill="currentColor"/></svg>
+        </div>
+        <h3>Website Design & Build</h3>
+        <p>Custom design, development, and CMS setup. Optional ongoing maintenance retainer available.</p>
+
+      </a>
+
+    </div>
+    <div class="services-footer">
+      <p style="font-size:14px;"><strong>Not sure which pack fits?</strong> That's what the free strategy call is for.</p>
+      <a href="services.html" class="btn btn-outline">View all service details →</a>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- WHY E&E -->
+<section>
+  <div class="container">
+    <span class="section-label">Why E&E</span>
+    <div class="section-head">
+      <h2>Built different, by design.</h2>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-card">
+        <div class="why-num">01</div>
+        <h3>Tailored on top of proven packs</h3>
+        <p>We start with a tested foundation and customize it for your business. Faster than building from scratch. Better fit than any template.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">02</div>
+        <h3>Founder-led from first call to launch</h3>
+        <p>You talk directly to the people writing the code and mapping your processes. No account managers. No hand-offs.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">03</div>
+        <h3>Fixed scope. Clear deliverables. 24-hour quotes.</h3>
+        <p>Know exactly what you're getting before you sign anything. A detailed proposal lands in your inbox within 24 hours of your first call.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="hiw-section">
+  <div class="container">
+    <span class="section-label">How it works</span>
+    <div class="section-head">
+      <h2>From first call to live system in weeks — not months.</h2>
+    </div>
+    <div class="steps-row reveal">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Book a 30-min call</h4>
+        <p>Tell us what's broken. We'll listen and tell you honestly whether we can help.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Get a fixed-price proposal</h4>
+        <p>Custom scope, clear deliverables, and a final price — in your inbox within 24 hours.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>We build. You stay in the loop.</h4>
+        <p>Weekly check-ins. Slack access. No surprises. You approve before we ship.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>Launch + 30 days free support</h4>
+        <p>We go live and stay on-call for 30 days to make sure everything works exactly right.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:48px;">
+      <a href="how-it-works.html" class="btn btn-outline">See the full process →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SELECTED BUILDS -->
+<section>
+  <div class="container">
+    <span class="section-label">Selected builds</span>
+    <div class="section-head">
+      <h2>Systems we've already built or are building.</h2>
+      <p>A few examples of practical software, automation, analytics, and web systems created for real small-business operations.</p>
+    </div>
+    <div class="builds-grid reveal">
+
+      <!-- Card 1: Pexbo Stock Keeping App -->
+      <div class="build-card">
+        <div class="build-img-placeholder">
+          <div class="grid-lines"></div>
+          <div class="mock-bar"><span></span><span></span><span></span></div>
+          <div class="mock-cols">
+            <div class="mock-sidebar">
+              <span class="active"></span>
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <div class="mock-main">
+              <div class="mock-stat-row">
+                <div class="mock-stat"></div>
+                <div class="mock-stat"></div>
+                <div class="mock-stat"></div>
+              </div>
+              <div class="mock-chart">
+                <div class="bar" style="height:55%"></div>
+                <div class="bar" style="height:80%"></div>
+                <div class="bar" style="height:40%"></div>
+                <div class="bar" style="height:90%"></div>
+                <div class="bar" style="height:65%"></div>
+                <div class="bar" style="height:75%"></div>
+              </div>
+            </div>
+          </div>
+          <span class="build-img-label">Pexbo stock dashboard screenshot</span>
+        </div>
+        <div class="build-body">
+          <div class="build-category">Inventory Management &amp; Visualization</div>
+          <h3>Pexbo Stock Keeping App</h3>
+          <p>A custom stock keeping application built to help the business track inventory, monitor product movement, and view key stock data through clear visual dashboards. Designed to reduce manual tracking and improve operational visibility.</p>
+        </div>
+      </div>
+
+      <!-- Card 2: Pexbo HR Portal -->
+      <div class="build-card">
+        <div class="build-img-placeholder">
+          <div class="grid-lines"></div>
+          <div class="mock-bar"><span></span><span></span><span></span></div>
+          <div class="mock-cols">
+            <div class="mock-sidebar">
+              <span></span>
+              <span class="active"></span>
+              <span></span><span></span><span></span>
+            </div>
+            <div class="mock-main">
+              <div class="mock-stat-row">
+                <div class="mock-stat"></div>
+                <div class="mock-stat"></div>
+                <div class="mock-stat"></div>
+              </div>
+              <div class="mock-chart" style="flex-direction:column;align-items:stretch;gap:5px;padding:8px;">
+                <div style="height:14px;border-radius:3px;background:rgba(255,255,255,0.08);"></div>
+                <div style="height:14px;border-radius:3px;background:var(--accent);opacity:0.45;"></div>
+                <div style="height:14px;border-radius:3px;background:rgba(255,255,255,0.08);"></div>
+                <div style="height:14px;border-radius:3px;background:rgba(255,255,255,0.08);"></div>
+              </div>
+            </div>
+          </div>
+          <span class="build-img-label">HR portal PTO screen</span>
+        </div>
+        <div class="build-body">
+          <div class="build-category">PTO Management &amp; Employee Workflow</div>
+          <h3>Pexbo HR Portal</h3>
+          <p>A custom HR portal with PTO request management, approval workflows, and employee-facing tools. Built to simplify internal HR processes and give the business a more organized way to manage time-off requests.</p>
+        </div>
+      </div>
+
+      <!-- Card 3: Premier Store -->
+      <div class="build-card">
+        <div class="build-img-placeholder">
+          <div class="grid-lines"></div>
+          <div class="mock-bar"><span></span><span></span><span></span></div>
+          <div class="mock-cols" style="grid-template-columns:1fr;">
+            <div class="mock-main" style="gap:8px;">
+              <div style="height:28px;border-radius:3px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.07);"></div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;flex:1;">
+                <div style="border-radius:4px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);"></div>
+                <div style="border-radius:4px;background:var(--accent);opacity:0.15;border:1px solid rgba(255,255,255,0.07);"></div>
+                <div style="border-radius:4px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);"></div>
+              </div>
+            </div>
+          </div>
+          <span class="build-img-label">Premier Store website preview</span>
+        </div>
+        <div class="build-body">
+          <div class="build-category">Website, Database, Front End &amp; Back End Development</div>
+          <h3>Premier Store Website &amp; Business Platform</h3>
+          <p>A full small-business web solution including website design, database structure, front-end development, and back-end functionality. Built to give Premier Store a stronger digital presence and a more scalable technical foundation.</p>
+        </div>
+      </div>
+
+      <!-- Card 4: Pexbo WMS -->
+      <div class="build-card">
+        <div class="build-img-placeholder">
+          <div class="grid-lines"></div>
+          <div class="mock-bar"><span></span><span></span><span></span></div>
+          <div class="mock-cols">
+            <div class="mock-sidebar">
+              <span></span><span></span>
+              <span class="active"></span>
+              <span></span><span></span>
+            </div>
+            <div class="mock-main">
+              <div class="mock-stat-row">
+                <div class="mock-stat"></div>
+                <div class="mock-stat"></div>
+                <div class="mock-stat"></div>
+              </div>
+              <div class="mock-chart">
+                <div class="bar" style="height:70%"></div>
+                <div class="bar" style="height:45%"></div>
+                <div class="bar" style="height:85%"></div>
+                <div class="bar" style="height:60%"></div>
+                <div class="bar" style="height:50%"></div>
+                <div class="bar" style="height:95%"></div>
+              </div>
+            </div>
+          </div>
+          <span class="build-img-label">WMS workflow/dashboard preview</span>
+        </div>
+        <div class="build-body">
+          <div class="build-category">
+            End-to-End Warehouse Management System
+            <span class="build-status"><span class="dot"></span>In progress</span>
+          </div>
+          <h3>Pexbo WMS System</h3>
+          <p>An in-progress warehouse management system designed to support inventory movement, warehouse workflows, operational tracking, and day-to-day logistics management from one centralized platform.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDERS -->
+<section class="founders-section">
+  <div class="container">
+    <span class="section-label">The founders</span>
+    <div class="section-head">
+      <h2>Two founders. One practical mission.</h2>
+      <p>E&E Solutions is led by two co-founders with complementary strengths: Enes Aktas focuses on business operations, analytics, and automation strategy, while Ekrem Taskin leads software engineering, AI systems, and technical implementation. Together, they help small and mid-sized businesses turn operational challenges into practical digital solutions.</p>
+    </div>
+    <div class="founders-grid reveal">
+      <div class="founder-card">
+        <div class="founder-photo">
+          <div class="founder-photo-placeholder">EA</div>
+        </div>
+        <div class="founder-info">
+          <h3>Enes Aktas</h3>
+          <div class="founder-role">Co-Founder | Business Operations, Analytics &amp; Automation Strategy</div>
+          <p>Enes leads the business, operations, analytics, and automation strategy side of E&E Solutions. With experience in data analytics, reporting systems, workflow optimization, and business process improvement, he focuses on understanding each client's operations, identifying inefficiencies, and designing practical solutions that improve visibility, reduce manual work, and support smarter decision-making.</p>
+        </div>
+      </div>
+      <div class="founder-card">
+        <div class="founder-photo">
+          <div class="founder-photo-placeholder">ET</div>
+        </div>
+        <div class="founder-info">
+          <h3>Ekrem Taskin</h3>
+          <div class="founder-role">Co-Founder | Software Engineering &amp; AI Systems</div>
+          <p>Ekrem leads the software development and technical implementation side of E&E Solutions. With experience in full-stack development, AI agent workflows, and end-to-end software solutions, he focuses on building reliable, scalable systems that turn business needs into working digital tools, automation workflows, dashboards, websites, and custom software.</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:32px;">
+      <a href="about.html" class="btn btn-outline">Read our story →</a>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="industries-section">
+  <div class="container">
+    <span class="section-label">Who we serve</span>
+    <div class="section-head">
+      <h2>Five industries we know well.</h2>
+      <p>We work best with small businesses in these sectors — though if your problem fits our scope, we'll tell you honestly.</p>
+    </div>
+    <div class="industries-grid reveal">
+      <div class="industry-tag">Logistics & Freight</div>
+      <div class="industry-tag">Healthcare Clinics</div>
+      <div class="industry-tag">Real Estate</div>
+      <div class="industry-tag">Professional Services</div>
+      <div class="industry-tag">Retail & E-commerce</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--bg);">
+  <div class="container">
+    <span class="section-label">Common questions</span>
+    <div class="section-head">
+      <h2>Everything you want to know.</h2>
+    </div>
+    <div class="faq-list reveal" style="max-width:720px;">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How fast can you start?
+          <svg class="faq-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">For most projects, we can start within 1–2 weeks of signing. The Operations Audit can begin as fast as 3 days after kickoff. We'll confirm your exact start date in the proposal.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What if my needs don't fit a pack?
+          <svg class="faq-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">The packs are starting points, not rigid boxes. We scope every project custom — if your needs overlap multiple packs or fall outside them, we'll put together a proposal that fits exactly what you need. Book a call and we'll figure it out together.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Do you offer ongoing support after launch?
+          <svg class="faq-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Every project includes 30 days of free support after launch. After that, we offer optional ongoing retainers covering maintenance, updates, and priority support. Retainer pricing is scoped per project.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What tools do you integrate with?
+          <svg class="faq-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">We work with most common business tools: QuickBooks, HubSpot, Salesforce, Airtable, Notion, Slack, Google Workspace, Zapier, and many more. We'll ask about your stack in the strategy call and confirm feasibility before scoping.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Do you work with clients remotely?
+          <svg class="faq-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — 100% remote, and we serve clients across the US. We collaborate via video calls, Slack, and Loom updates. No travel needed, no location limitations.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <span class="section-label" style="color:rgba(255,255,255,0.35);">Ready?</span>
+    <h2>Stop fighting your software.</h2>
+    <p>30 minutes. No pitch. We'll tell you honestly what will actually fix it.</p>
+    <div class="final-cta-actions">
+      <a href="book-a-call.html" class="btn btn-accent" style="font-size:16px;padding:16px 32px;">Book a Free 30-Min Strategy Call</a>
+      <a href="quote.html" style="font-size:14px;color:rgba(255,255,255,0.45);font-weight:500;transition:color 0.15s;" onmouseover="this.style.color='rgba(255,255,255,0.8)'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">or request a quote →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-mark">E&</div>
+          E&E Solutions
+        </div>
+        <p class="footer-tagline">Operations and web solutions, tailored for small business. Serving clients remotely across the US.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html#operations-audit">Operations Audit</a></li>
+          <li><a href="services.html#analytics-dashboard">Analytics & Dashboard</a></li>
+          <li><a href="services.html#tailored-software">Tailored Software</a></li>
+          <li><a href="services.html#website-design">Website Design</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get started</h4>
+        <ul>
+          <li><a href="book-a-call.html">Book a Strategy Call</a></li>
+          <li><a href="quote.html">Request a Quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 E&E Solutions LLC. All rights reserved.</span>
+      <div style="display:flex;gap:24px;">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // FAQ accordion
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

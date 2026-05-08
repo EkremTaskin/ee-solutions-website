@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — E&E Solutions</title>
+  <meta name="description" content="E&E Solutions is founder-led by two people who believe small businesses deserve software that fits. Learn who we are and why we started." />
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    .about-hero {
+      padding-top: calc(60px + 96px);
+      padding-bottom: 80px;
+      background: var(--fg);
+      color: #fff;
+    }
+    .about-hero .section-label { color: rgba(255,255,255,0.4); }
+    .about-hero h1 { color: #fff; max-width: 720px; }
+    .about-hero p { font-size: 20px; color: rgba(255,255,255,0.55); max-width: 600px; margin-top: 20px; }
+
+    .origin-section {
+      padding: var(--section-pad) 0;
+    }
+    .origin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .origin-text h2 { margin-bottom: 24px; }
+    .origin-text p { font-size: 17px; margin-bottom: 20px; }
+    .origin-text p:last-child { margin-bottom: 0; }
+    .origin-visual {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 36px;
+    }
+    .origin-stat {
+      display: flex;
+      flex-direction: column;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .origin-stat:last-child { border-bottom: none; padding-bottom: 0; }
+    .origin-stat:first-child { padding-top: 0; }
+    .origin-stat-num {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--fg);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .origin-stat-label { font-size: 14px; color: var(--fg-muted); }
+
+    /* Founders */
+    .founder-full {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .founder-full-top {
+      padding: 36px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .founder-full-photo {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .founder-full-photo-inner {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--fg-muted);
+    }
+    .founder-full-name { font-size: 24px; margin-bottom: 4px; }
+    .founder-full-role {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .founder-full-bio { font-size: 15px; line-height: 1.75; }
+    .founder-full-bottom {
+      padding: 20px 36px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .founder-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .founder-detail-label {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--fg-light);
+    }
+    .founder-detail-val {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    /* Values */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .value-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px;
+    }
+    .value-icon {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .value-card h4 { font-size: 17px; margin-bottom: 8px; }
+    .value-card p { font-size: 15px; }
+
+    /* Promise */
+    .promise-section {
+      background: var(--fg);
+      padding: var(--section-pad) 0;
+    }
+    .promise-section .section-label { color: rgba(255,255,255,0.4); }
+    .promise-section h2 { color: #fff; margin-bottom: 40px; }
+    .promise-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 640px;
+    }
+    .promise-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .promise-check {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .promise-check svg { color: #fff; }
+    .promise-item p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+    }
+    .promise-item p strong { color: #fff; }
+
+    @media (max-width: 768px) {
+      .origin-grid { grid-template-columns: 1fr; gap: 40px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .founder-full-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      E&E Solutions
+    </a>
+    <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="quote.html" class="btn btn-outline" style="padding:9px 18px;font-size:14px;">Get a Quote</a>
+      <a href="book-a-call.html" class="btn btn-primary" style="padding:9px 18px;font-size:14px;">Book a Call</a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="services.html">Services</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="quote.html">Get a Quote</a>
+  <a href="book-a-call.html" style="color:var(--accent);font-weight:600;">Book a Call →</a>
+</div>
+
+<!-- HERO -->
+<div class="about-hero">
+  <div class="container">
+    <span class="section-label">About us</span>
+    <h1>Built by two people who were tired of watching small businesses lose to bad software.</h1>
+    <p>E&E Solutions exists because the tools available to small businesses are either too generic, too complex, or too expensive. We fix that.</p>
+  </div>
+</div>
+
+<!-- ORIGIN -->
+<section class="origin-section">
+  <div class="container">
+    <div class="origin-grid reveal">
+      <div class="origin-text">
+        <span class="section-label">Our story</span>
+        <h2>Why we started E&E.</h2>
+        <p>We spent years watching small businesses struggle with the same problems. Generic software with features they didn't need. Expensive consultants who disappeared after delivery. Websites that looked like everyone else's.</p>
+        <p>The businesses that needed help the most — 10, 30, 100 person companies — were stuck. Too small for enterprise solutions. Too complex for off-the-shelf tools. Not sure where to start.</p>
+        <p>We started E&E to be the answer for those businesses. Tailored solutions scoped to fit. Clear deliverables, founder-led from first call to launch.</p>
+        <p>We serve clients across the US, work 100% remotely, and believe the best client relationships are built on clarity, not hand-waving.</p>
+      </div>
+      <div class="origin-visual">
+        <div class="origin-stat">
+          <div class="origin-stat-num">24hr</div>
+          <div class="origin-stat-label">Quote turnaround after your strategy call</div>
+        </div>
+        <div class="origin-stat">
+          <div class="origin-stat-num">30 days</div>
+          <div class="origin-stat-label">Free post-launch support on every project</div>
+        </div>
+        <div class="origin-stat">
+          <div class="origin-stat-num">5–200</div>
+          <div class="origin-stat-label">Employee range of the businesses we serve best</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDERS -->
+<section style="background:var(--bg);">
+  <div class="container">
+    <span class="section-label">The founders</span>
+    <div class="section-head">
+      <h2>Two founders. One practical mission.</h2>
+      <p>E&E Solutions is led by two co-founders with complementary strengths: Enes Aktas focuses on business operations, analytics, and automation strategy, while Ekrem Taskin leads software engineering, AI systems, and technical implementation. Together, they help small and mid-sized businesses turn operational challenges into practical digital solutions.</p>
+    </div>
+    <div class="reveal">
+      <div class="founder-full">
+        <div class="founder-full-top">
+          <div class="founder-full-photo">
+            <div class="founder-full-photo-inner">EA</div>
+          </div>
+          <div>
+            <h3 class="founder-full-name">Enes Aktas</h3>
+            <div class="founder-full-role">Co-Founder | Business Operations, Analytics &amp; Automation Strategy</div>
+            <p class="founder-full-bio">Enes leads the business, operations, analytics, and automation strategy side of E&E Solutions. With experience in data analytics, reporting systems, workflow optimization, and business process improvement, he focuses on understanding each client's operations, identifying inefficiencies, and designing practical solutions that improve visibility, reduce manual work, and support smarter decision-making.</p>
+          </div>
+        </div>
+        <div class="founder-full-bottom">
+          <div class="founder-detail">
+            <span class="founder-detail-label">Specialty</span>
+            <span class="founder-detail-val">Operations strategy, analytics, automation</span>
+          </div>
+          <div class="founder-detail">
+            <span class="founder-detail-label">Background</span>
+            <span class="founder-detail-val">SQL, Python, Power BI, reporting systems, workflow optimization</span>
+          </div>
+          <div class="founder-detail">
+            <span class="founder-detail-label">Focus</span>
+            <span class="founder-detail-val">Business discovery, client operations, measurable efficiency gains</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="founder-full">
+        <div class="founder-full-top">
+          <div class="founder-full-photo">
+            <div class="founder-full-photo-inner">ET</div>
+          </div>
+          <div>
+            <h3 class="founder-full-name">Ekrem Taskin</h3>
+            <div class="founder-full-role">Co-Founder | Software Engineering &amp; AI Systems</div>
+            <p class="founder-full-bio">Ekrem leads the software development and technical implementation side of E&E Solutions. With experience in full-stack development, AI agent workflows, and end-to-end software solutions, he focuses on building reliable, scalable systems that turn business needs into working digital tools, automation workflows, dashboards, websites, and custom software.</p>
+          </div>
+        </div>
+        <div class="founder-full-bottom">
+          <div class="founder-detail">
+            <span class="founder-detail-label">Specialty</span>
+            <span class="founder-detail-val">Full-stack development, AI agent workflows, software architecture</span>
+          </div>
+          <div class="founder-detail">
+            <span class="founder-detail-label">Background</span>
+            <span class="founder-detail-val">End-to-end software builds, front end, back end, AI-enabled workflows</span>
+          </div>
+          <div class="founder-detail">
+            <span class="founder-detail-label">Focus</span>
+            <span class="founder-detail-val">Technical implementation, scalable systems, product delivery</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE SERVE -->
+<section>
+  <div class="container">
+    <span class="section-label">Who we serve</span>
+    <div class="section-head">
+      <h2>We work best with businesses like yours.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:720px;" class="reveal">
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-md);padding:24px;">
+        <div style="font-size:13px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;color:var(--fg-light);margin-bottom:12px;">Good fit</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+          <li style="font-size:15px;color:var(--fg-muted);display:flex;gap:8px;align-items:center;"><span style="color:#22c55e;font-weight:700;">✓</span> 5–200 employees</li>
+          <li style="font-size:15px;color:var(--fg-muted);display:flex;gap:8px;align-items:center;"><span style="color:#22c55e;font-weight:700;">✓</span> US-based, remote-friendly</li>
+          <li style="font-size:15px;color:var(--fg-muted);display:flex;gap:8px;align-items:center;"><span style="color:#22c55e;font-weight:700;">✓</span> Operations that have outgrown spreadsheets</li>
+          <li style="font-size:15px;color:var(--fg-muted);display:flex;gap:8px;align-items:center;"><span style="color:#22c55e;font-weight:700;">✓</span> Website that looks like a template</li>
+          <li style="font-size:15px;color:var(--fg-muted);display:flex;gap:8px;align-items:center;"><span style="color:#22c55e;font-weight:700;">✓</span> Budget for a meaningful fix</li>
+        </ul>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-md);padding:24px;">
+        <div style="font-size:13px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;color:var(--fg-light);margin-bottom:12px;">Not our best fit</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+          <li style="font-size:15px;color:var(--fg-muted);display:flex;gap:8px;align-items:center;"><span style="color:#ef4444;font-weight:700;">✗</span> 1,000+ employee enterprises</li>
+          <li style="font-size:15px;color:var(--fg-muted);display:flex;gap:8px;align-items:center;"><span style="color:#ef4444;font-weight:700;">✗</span> Consumer mobile app development</li>
+          <li style="font-size:15px;color:var(--fg-muted);display:flex;gap:8px;align-items:center;"><span style="color:#ef4444;font-weight:700;">✗</span> Marketing, SEO, or ad management</li>
+          <li style="font-size:15px;color:var(--fg-muted);display:flex;gap:8px;align-items:center;"><span style="color:#ef4444;font-weight:700;">✗</span> E-commerce stores over 1,000 SKUs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section style="background:var(--bg);">
+  <div class="container">
+    <span class="section-label">Our values</span>
+    <div class="section-head">
+      <h2>How we work.</h2>
+    </div>
+    <div class="values-grid reveal">
+      <div class="value-card">
+        <div class="value-icon">01</div>
+        <h4>Honest before comfortable</h4>
+        <p>If your idea won't work, we'll tell you. If we're not the right fit, we'll say so. We'd rather lose a project than set you up for a bad outcome.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">02</div>
+        <h4>Fixed scope, always</h4>
+        <p>We scope everything in writing before we start. No surprises on the invoice. No scope creep baked in. What the proposal says is what you pay.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">03</div>
+        <h4>Simple over clever</h4>
+        <p>We build the simplest solution that solves your problem. Unnecessary complexity is expensive to maintain and expensive to fix. We skip it.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">04</div>
+        <h4>You own what we build</h4>
+        <p>Everything we build belongs to you after final payment. No licensing fees. No lock-in. You can take it to any other developer or run it yourself.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="promise-section">
+  <div class="container">
+    <span class="section-label">Our promise</span>
+    <h2>What you can count on.</h2>
+    <div class="promise-list reveal">
+      <div class="promise-item">
+        <div class="promise-check">
+          <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p><strong>Transparent pricing, written before we start.</strong> You'll never get a bill that's more than the proposal says.</p>
+      </div>
+      <div class="promise-item">
+        <div class="promise-check">
+          <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p><strong>Quote in your inbox within 24 hours</strong> of your strategy call. Not a week. Not "we'll follow up soon."</p>
+      </div>
+      <div class="promise-item">
+        <div class="promise-check">
+          <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p><strong>You talk to the founders,</strong> not account managers or project coordinators.</p>
+      </div>
+      <div class="promise-item">
+        <div class="promise-check">
+          <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p><strong>30 days of free support</strong> after every launch. Bugs fixed at no charge.</p>
+      </div>
+      <div class="promise-item">
+        <div class="promise-check">
+          <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p><strong>Nothing launches without your sign-off.</strong> Every milestone reviewed and approved before we move forward.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="text-align:center;padding:var(--section-pad) 0;">
+  <div class="container">
+    <h2 style="margin-bottom:16px;">Ready to work together?</h2>
+    <p style="font-size:18px;max-width:440px;margin:0 auto 40px;">Book a 30-min call. We'll listen, and tell you honestly what we'd do.</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+      <a href="book-a-call.html" class="btn btn-accent" style="font-size:16px;padding:16px 32px;">Book a Free 30-Min Call</a>
+      <a href="quote.html" class="btn btn-outline">Request a Quote</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><div class="footer-logo-mark">E&</div>E&E Solutions</div>
+        <p class="footer-tagline">Operations and web solutions, tailored for small business. Serving clients remotely across the US.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="services.html#operations-audit">Operations Audit</a></li>
+        <li><a href="services.html#analytics-dashboard">Analytics & Dashboard</a></li>
+        <li><a href="services.html#tailored-software">Tailored Software</a></li>
+        <li><a href="services.html#website-design">Website Design</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Get started</h4><ul>
+        <li><a href="book-a-call.html">Book a Strategy Call</a></li>
+        <li><a href="quote.html">Request a Quote</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 E&E Solutions LLC. All rights reserved.</span>
+      <div style="display:flex;gap:24px;"><a href="#">Privacy Policy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

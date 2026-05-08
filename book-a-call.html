@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Free Strategy Call — E&E Solutions</title>
+  <meta name="description" content="30 minutes. No pitch. We'll review your operations and tell you honestly whether we can help. Book a free strategy call with E&E Solutions." />
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    .call-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+      padding-top: calc(60px + 80px);
+      padding-bottom: 80px;
+    }
+    .call-left h1 { margin-bottom: 20px; }
+    .call-left .call-sub {
+      font-size: 19px;
+      color: var(--fg-muted);
+      line-height: 1.65;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    .call-perks {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .call-perk {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .call-perk-icon {
+      width: 36px; height: 36px;
+      border-radius: var(--r-sm);
+      background: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .call-perk-text strong { display: block; font-size: 15px; margin-bottom: 2px; }
+    .call-perk-text p { font-size: 14px; }
+
+    .call-quote {
+      background: var(--fg);
+      border-radius: var(--r-lg);
+      padding: 28px;
+      margin-top: 40px;
+    }
+    .call-quote blockquote {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+    .call-quote-attr {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      font-style: normal;
+    }
+
+    /* Message form */
+    .msg-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      position: sticky;
+      top: 80px;
+    }
+    .msg-header {
+      background: var(--fg);
+      padding: 20px 24px;
+    }
+    .msg-header h3 { color: #fff; font-size: 18px; margin-bottom: 4px; }
+    .msg-header p { color: rgba(255,255,255,0.5); font-size: 14px; }
+    .msg-body { padding: 28px 24px; }
+    .msg-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .msg-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .msg-field label {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--fg-light);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .msg-field input,
+    .msg-field select,
+    .msg-field textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 10px 14px;
+      font-size: 15px;
+      color: var(--fg);
+      font-family: var(--font-sans);
+      transition: border-color 0.15s;
+      outline: none;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .msg-field input:focus,
+    .msg-field select:focus,
+    .msg-field textarea:focus { border-color: var(--accent); }
+    .msg-field textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
+    .msg-field select { appearance: none; cursor: pointer; }
+    .msg-submit {
+      width: 100%;
+      justify-content: center;
+      margin-top: 4px;
+    }
+    .msg-note {
+      font-size: 12px;
+      color: var(--fg-light);
+      text-align: center;
+      margin-top: 12px;
+      font-family: var(--font-mono);
+    }
+
+    /* Success state */
+    .msg-success {
+      display: none;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .msg-success-icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: oklch(94% 0.06 145);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    @media (max-width: 900px) {
+      .call-layout { grid-template-columns: 1fr; }
+      .calendar-container { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      E&E Solutions
+    </a>
+    <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="quote.html" class="btn btn-outline" style="padding:9px 18px;font-size:14px;">Get a Quote</a>
+      <a href="book-a-call.html" class="btn btn-primary" style="padding:9px 18px;font-size:14px;">Book a Call</a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="services.html">Services</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="quote.html">Get a Quote</a>
+  <a href="book-a-call.html" style="color:var(--accent);font-weight:600;">Book a Call →</a>
+</div>
+
+<div class="container">
+  <div class="call-layout">
+
+    <!-- LEFT: copy -->
+    <div>
+      <span class="section-label">Free strategy call</span>
+      <h1>30 minutes.<br/>No pitch.</h1>
+      <p class="call-sub">We'll review your operations and tell you honestly whether we can help — and what we'd actually do. No obligation, no follow-up pressure.</p>
+
+      <div class="call-perks">
+        <div class="call-perk">
+          <div class="call-perk-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/><path d="M3 15c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </div>
+          <div class="call-perk-text">
+            <strong>You talk directly to the founders</strong>
+            <p>Not a sales rep or account manager. The people on the call are the people who build.</p>
+          </div>
+        </div>
+        <div class="call-perk">
+          <div class="call-perk-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L2 6v4c0 4 3 7 7 8 4-1 7-4 7-8V6L9 2z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="call-perk-text">
+            <strong>Honest assessment — even if it's "no"</strong>
+            <p>If we're not the right fit, we'll tell you. No wasted time for either of us.</p>
+          </div>
+        </div>
+        <div class="call-perk">
+          <div class="call-perk-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.4"/><path d="M9 5v4l3 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </div>
+          <div class="call-perk-text">
+            <strong>Fixed-price proposal within 24 hours</strong>
+            <p>If we're a fit, your proposal — with a specific number — lands in your inbox the next business day.</p>
+          </div>
+        </div>
+        <div class="call-perk">
+          <div class="call-perk-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.4"/><path d="M6 9l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="call-perk-text">
+            <strong>Works for all US time zones</strong>
+            <p>We have morning, afternoon, and some evening slots available across ET, CT, MT, and PT.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="call-quote">
+        <blockquote>"E&E Solutions is led by two founders who are directly involved in every project — from the first call through launch. You talk to the people building it, every step of the way."</blockquote>
+        <div class="call-quote-attr">— Enes Aktas &amp; Ekrem Taskin, Co-Founders · E&E Solutions</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: message form -->
+    <div>
+      <div class="msg-container" id="msgContainer">
+        <div class="msg-header">
+          <h3>Request a Strategy Call</h3>
+          <p>We'll reply within one business day to schedule</p>
+        </div>
+
+        <form class="msg-body" id="msgForm" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="b0d9653e-60e6-44b9-8f60-4b5c540b17ca">
+          <input type="hidden" name="subject" value="New Strategy Call Request — E&E Solutions">
+          <input type="hidden" name="from_name" value="E&E Solutions Website">
+          <input type="hidden" name="replyto" value="email">
+          <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
+
+          <div class="msg-row">
+            <div class="msg-field">
+              <label for="msg-name">Your name</label>
+              <input type="text" id="msg-name" name="name" placeholder="Jane Smith" required />
+            </div>
+            <div class="msg-field">
+              <label for="msg-email">Email address</label>
+              <input type="email" id="msg-email" name="email" placeholder="jane@company.com" required />
+            </div>
+          </div>
+          <div class="msg-row">
+            <div class="msg-field">
+              <label for="msg-phone">Phone (optional)</label>
+              <input type="tel" id="msg-phone" name="phone" placeholder="(555) 000-0000" />
+            </div>
+            <div class="msg-field">
+              <label for="msg-timezone">Your time zone</label>
+              <select id="msg-timezone" name="timezone">
+                <option value="">Select one…</option>
+                <option>Eastern (ET)</option>
+                <option>Central (CT)</option>
+                <option>Mountain (MT)</option>
+                <option>Pacific (PT)</option>
+              </select>
+            </div>
+          </div>
+          <div class="msg-field">
+            <label for="msg-availability">Best times to reach you</label>
+            <input type="text" id="msg-availability" name="availability" placeholder="e.g. Weekday mornings, or Thu after 2 PM" />
+          </div>
+          <div class="msg-field">
+            <label for="msg-body">What's going on? <span style="color:var(--accent);">*</span></label>
+            <textarea id="msg-body" name="message" placeholder="Briefly describe what you're trying to fix or build. No need to have it all figured out — that's what the call is for." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-accent msg-submit" id="msgSubmitBtn">
+            Send message →
+          </button>
+          <p class="msg-note">We respond to every message within one business day.</p>
+        </form>
+
+        <div class="msg-success" id="msgSuccess">
+          <div class="msg-success-icon">
+            <svg width="28" height="22" viewBox="0 0 28 22" fill="none"><path d="M2 11l8 8L26 2" stroke="oklch(45% 0.15 145)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 style="margin-bottom:8px;">Message sent.</h3>
+          <p style="font-size:15px;color:var(--fg-muted);margin-bottom:4px;">We'll be in touch within one business day to schedule your call.</p>
+          <p style="font-size:13px;color:var(--fg-light);font-family:var(--font-mono);">info@eesolutions.info</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<section style="background:var(--bg);padding:64px 0;">
+  <div class="container">
+    <span class="section-label">What to expect</span>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;" class="reveal">
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px;">
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--fg-light);margin-bottom:12px;">Minutes 0–10</div>
+        <h4 style="margin-bottom:8px;">You talk, we listen</h4>
+        <p style="font-size:14px;">Tell us what's broken. We ask questions to understand your operations, team, and tools.</p>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px;">
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--fg-light);margin-bottom:12px;">Minutes 10–25</div>
+        <h4 style="margin-bottom:8px;">We share our read</h4>
+        <p style="font-size:14px;">We tell you what we think the problem is, what we'd recommend, and whether we're the right fit to fix it.</p>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px;">
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--fg-light);margin-bottom:12px;">Minutes 25–30</div>
+        <h4 style="margin-bottom:8px;">Next steps</h4>
+        <p style="font-size:14px;">If it's a fit: proposal in your inbox within 24 hours. If it's not: we'll point you in the right direction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">E&E Solutions</div>
+        <p class="footer-tagline">Operations and web solutions, tailored for small business.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="services.html#operations-audit">Operations Audit</a></li>
+        <li><a href="services.html#analytics-dashboard">Analytics & Dashboard</a></li>
+        <li><a href="services.html#tailored-software">Tailored Software</a></li>
+        <li><a href="services.html#website-design">Website Design</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Get started</h4><ul>
+        <li><a href="book-a-call.html">Book a Strategy Call</a></li>
+        <li><a href="quote.html">Request a Quote</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 E&E Solutions LLC. All rights reserved.</span>
+      <div style="display:flex;gap:24px;"><a href="#">Privacy Policy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+
+  const msgForm = document.getElementById('msgForm');
+  const msgSubmitBtn = document.getElementById('msgSubmitBtn');
+
+  msgForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const originalLabel = msgSubmitBtn.innerHTML;
+    msgSubmitBtn.disabled = true;
+    msgSubmitBtn.innerHTML = 'Sending…';
+
+    try {
+      const formData = new FormData(msgForm);
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' },
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        msgForm.style.display = 'none';
+        document.getElementById('msgSuccess').style.display = 'block';
+      } else {
+        alert('Sorry, something went wrong. Please email us directly at info@eesolutions.info');
+        msgSubmitBtn.disabled = false;
+        msgSubmitBtn.innerHTML = originalLabel;
+      }
+    } catch (err) {
+      alert('Network error. Please email us directly at info@eesolutions.info');
+      msgSubmitBtn.disabled = false;
+      msgSubmitBtn.innerHTML = originalLabel;
+    }
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

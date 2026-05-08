@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — E&E Solutions</title>
+  <meta name="description" content="Four productized service packs for small businesses: Operations Audit, Analytics Dashboard, Tailored Software, and Website Design." />
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    .services-nav {
+      position: sticky;
+      top: 60px;
+      z-index: 50;
+      background: rgba(247,247,248,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+    .services-nav-inner {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      max-width: var(--page-max);
+      margin: 0 auto;
+      padding: 0 var(--page-gutter);
+    }
+    .services-nav-inner::-webkit-scrollbar { display: none; }
+    .snav-link {
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--fg-muted);
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .snav-link:hover, .snav-link.active { color: var(--fg); border-bottom-color: var(--fg); }
+
+    /* Pack sections */
+    .pack-section {
+      padding: var(--section-pad) 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pack-section:last-of-type { border-bottom: none; }
+    .pack-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: start;
+      margin-bottom: 56px;
+    }
+    .pack-title-area { }
+    .pack-price-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px 32px;
+      text-align: right;
+      min-width: 240px;
+    }
+    .pack-price-label {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--fg-light);
+      margin-bottom: 6px;
+    }
+    .pack-price-amount {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--fg);
+    }
+    .pack-price-note {
+      font-size: 13px;
+      color: var(--fg-light);
+      margin-top: 4px;
+    }
+    .pack-duration {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      background: var(--bg);
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--fg-muted);
+    }
+
+    .pack-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .pack-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px;
+    }
+    .pack-block h4 {
+      font-size: 13px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--fg-light);
+      margin-bottom: 16px;
+    }
+    .pack-block ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .pack-block ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 15px;
+      color: var(--fg-muted);
+      line-height: 1.5;
+    }
+    .pack-block ul li::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      flex-shrink: 0;
+      margin-top: 1px;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4l2.5 2.5L9 1' stroke='%230066ff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .pack-block.not-included ul li::before {
+      background-color: #fee2e2;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2l6 6M8 2L2 8' stroke='%23ef4444' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    }
+    .pack-block.outcomes { background: var(--fg); border-color: transparent; }
+    .pack-block.outcomes h4 { color: rgba(255,255,255,0.4); }
+    .pack-block.outcomes ul li { color: rgba(255,255,255,0.7); }
+    .pack-block.outcomes ul li::before {
+      background-color: rgba(255,255,255,0.1);
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4l2.5 2.5L9 1' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+
+    .use-cases {
+      margin-bottom: 40px;
+    }
+    .use-cases h4 {
+      font-size: 13px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--fg-light);
+      margin-bottom: 16px;
+    }
+    .use-case-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .use-case-card {
+      background: var(--accent-soft);
+      border: 1px solid oklch(90% 0.08 248);
+      border-radius: var(--r-md);
+      padding: 20px;
+    }
+    .use-case-card h5 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 6px;
+    }
+    .use-case-card p {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .pack-cta {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .pack-cta-text strong { font-size: 18px; display: block; margin-bottom: 4px; }
+    .pack-cta-text p { font-size: 14px; }
+
+    .factors-row {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: var(--fg-muted);
+      line-height: 1.7;
+    }
+    .factors-row strong { color: var(--fg); }
+
+    /* Pack-specific FAQ */
+    .pack-faq { margin-top: 40px; }
+    .pack-faq h4 {
+      font-size: 13px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--fg-light);
+      margin-bottom: 20px;
+    }
+
+    /* FAQ icon — must be sized here; not inherited from other pages */
+    .faq-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--fg-light);
+      transition: transform 0.2s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--fg);
+      gap: 16px;
+      user-select: none;
+    }
+    .faq-q:hover { color: var(--accent); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .faq-a-inner {
+      padding-bottom: 20px;
+      font-size: 15px;
+      color: var(--fg-muted);
+      line-height: 1.75;
+    }
+    .faq-item.open .faq-a { max-height: 300px; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+
+    @media (max-width: 768px) {
+      .pack-header { grid-template-columns: 1fr; }
+      .pack-price-card { text-align: left; min-width: unset; }
+      .pack-grid { grid-template-columns: 1fr; }
+      .use-case-cards { grid-template-columns: 1fr; }
+      .pack-cta { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      E&E Solutions
+    </a>
+    <ul class="nav-links">
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="quote.html" class="btn btn-outline" style="padding:9px 18px;font-size:14px;">Get a Quote</a>
+      <a href="book-a-call.html" class="btn btn-primary" style="padding:9px 18px;font-size:14px;">Book a Call</a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="services.html">Services</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="quote.html">Get a Quote</a>
+  <a href="book-a-call.html" style="color:var(--accent);font-weight:600;">Book a Call →</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <span class="section-label">Service packs</span>
+    <h1>Four starting points.<br/>One custom fit.</h1>
+    <p>Each pack is a proven foundation we customize to your business. Faster than building from scratch. Better fit than any off-the-shelf tool.</p>
+  </div>
+</div>
+
+<!-- SERVICES NAV -->
+<nav class="services-nav">
+  <div class="services-nav-inner">
+    <a class="snav-link" href="#operations-audit">Operations Audit</a>
+    <a class="snav-link" href="#analytics-dashboard">Analytics & Dashboard</a>
+    <a class="snav-link" href="#tailored-software">Tailored Software</a>
+    <a class="snav-link" href="#website-design">Website Design</a>
+  </div>
+</nav>
+
+<!-- ── PACK 1: OPERATIONS AUDIT ── -->
+<section class="pack-section" id="operations-audit">
+  <div class="container">
+    <div class="pack-header">
+      <div class="pack-title-area">
+        <span class="section-label">Pack 01</span>
+        <h2>Operations Audit</h2>
+        <p style="font-size:18px;max-width:560px;margin-top:12px;">The low-risk entry point. We map your processes, find the bottlenecks, and hand you a concrete recommendations doc — all in one week.</p>
+        <div class="chip" style="margin-top:16px;">Best first step for any project</div>
+      </div>
+      <div class="pack-price-card">
+        <div class="pack-price-label">Custom quote</div>
+        <div class="pack-price-note">No hourly billing. No surprises.</div>
+        <div class="pack-duration">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          1 week
+        </div>
+        <a href="book-a-call.html" class="btn btn-accent" style="width:100%;justify-content:center;margin-top:16px;">Book a Call →</a>
+      </div>
+    </div>
+
+    <div class="use-cases">
+      <h4>Sample use cases</h4>
+      <div class="use-case-cards">
+        <div class="use-case-card">
+          <h5>Healthcare clinic</h5>
+          <p>Audit intake, scheduling, and billing workflows — identify where staff time is being lost and what to fix first.</p>
+        </div>
+        <div class="use-case-card">
+          <h5>Freight broker</h5>
+          <p>Map the load booking and carrier communication process to find where manual steps are slowing down dispatch.</p>
+        </div>
+        <div class="use-case-card">
+          <h5>Professional services firm</h5>
+          <p>Review client onboarding, project tracking, and invoicing to build a roadmap for automation and software fixes.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pack-grid">
+      <div class="pack-block">
+        <h4>What's included</h4>
+        <ul>
+          <li>2 discovery sessions (1hr each) with key stakeholders</li>
+          <li>Full process map of your current operations</li>
+          <li>Bottleneck and waste identification</li>
+          <li>Prioritized recommendations doc (PDF + live doc)</li>
+          <li>Estimated ROI for each recommended fix</li>
+          <li>30-min debrief call to walk through findings</li>
+        </ul>
+      </div>
+      <div class="pack-block not-included">
+        <h4>What's not included</h4>
+        <ul>
+          <li>Implementation of any recommendations</li>
+          <li>Software or tool procurement</li>
+          <li>Ongoing support after delivery</li>
+          <li>IT infrastructure review</li>
+        </ul>
+      </div>
+      <div class="pack-block outcomes" style="grid-column:span 2;">
+        <h4>Expected outcomes</h4>
+        <ul>
+          <li>Clear picture of where time and money are being lost</li>
+          <li>Prioritized fix list — no guessing what to tackle first</li>
+          <li>A concrete roadmap for your next investment (software, automation, or both)</li>
+          <li>Confidence that any next step is the right one</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="factors-row">
+      <strong>What affects the scope:</strong> The base pack covers businesses up to 30 people and 5 core workflows. Larger teams or more complex operations may require an extended scope — we'll confirm in your strategy call before scoping.
+    </div>
+
+    <div class="pack-faq">
+      <h4>Pack FAQ</h4>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Do I need to prepare anything before the audit?
+            <svg class="faq-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">No prep required. We'll send a short pre-call questionnaire to gather basics. During discovery sessions, we ask the questions — you just talk through how work gets done today.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Can the audit lead directly into an implementation project?
+            <svg class="faq-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">Yes — and many clients do exactly that. The recommendations doc becomes the spec for a follow-on project. If you move into a follow-on pack, the audit fee applies as a credit toward the project.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Can the audit credit roll into a follow-on project?
+            <svg class="faq-icon" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">Yes. The first 5 clients get a special founding rate in exchange for a testimonial after delivery. Spots are limited. Book a call to claim yours.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pack-cta" style="margin-top:40px;">
+      <div class="pack-cta-text">
+        <strong>Ready to start with the Operations Audit?</strong>
+        <p>Book a free 30-min call. We'll confirm fit and get your proposal over within 24 hours.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="book-a-call.html" class="btn btn-accent">Book a Call</a>
+        <a href="quote.html" class="btn btn-outline">Request a Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PACK 2: ANALYTICS & DASHBOARD ── -->
+<section class="pack-section" id="analytics-dashboard">
+  <div class="container">
+    <div class="pack-header">
+      <div class="pack-title-area">
+        <span class="section-label">Pack 02</span>
+        <h2>Analytics & Dashboard</h2>
+        <p style="font-size:18px;max-width:560px;margin-top:12px;">One dashboard that shows you exactly how your business is performing — pulling from all your existing tools, updating automatically.</p>
+      </div>
+      <div class="pack-price-card">
+        <div class="pack-price-label">Custom quote</div>
+        <div class="pack-price-note">Scope confirmed before you pay.</div>
+        <div class="pack-duration">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          ~3 weeks
+        </div>
+        <a href="book-a-call.html" class="btn btn-accent" style="width:100%;justify-content:center;margin-top:16px;">Book a Call →</a>
+      </div>
+    </div>
+
+    <div class="use-cases">
+      <h4>Sample use cases</h4>
+      <div class="use-case-cards">
+        <div class="use-case-card">
+          <h5>Real estate brokerage</h5>
+          <p>Live dashboard showing pipeline value, agent performance, and deals by stage — pulling from your CRM automatically.</p>
+        </div>
+        <div class="use-case-card">
+          <h5>Clinic operations</h5>
+          <p>Daily view of appointment fill rates, revenue per provider, and no-show trends — updated every morning.</p>
+        </div>
+        <div class="use-case-card">
+          <h5>Logistics company</h5>
+          <p>Real-time load status, on-time delivery rates, and margin per lane — across all your dispatch data.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pack-grid">
+      <div class="pack-block">
+        <h4>What's included</h4>
+        <ul>
+          <li>KPI discovery and definition session</li>
+          <li>Data source connections (up to 4 tools)</li>
+          <li>Custom dashboard design and build</li>
+          <li>Automated refresh and alert setup</li>
+          <li>Training session for your team</li>
+          <li>30 days of post-launch support</li>
+        </ul>
+      </div>
+      <div class="pack-block not-included">
+        <h4>What's not included</h4>
+        <ul>
+          <li>More than 4 data source connections (add-on)</li>
+          <li>Data cleaning or historical data migration</li>
+          <li>Ongoing dashboard maintenance (available as retainer)</li>
+          <li>BI tool licenses (Metabase, Looker, etc. — client-procured)</li>
+        </ul>
+      </div>
+      <div class="pack-block outcomes" style="grid-column:span 2;">
+        <h4>Expected outcomes</h4>
+        <ul>
+          <li>Single source of truth for business performance — no more spreadsheet patchwork</li>
+          <li>Faster decisions based on real-time data</li>
+          <li>Early-warning alerts before small problems become big ones</li>
+          <li>Less time spent pulling reports manually each week</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="factors-row">
+      <strong>What affects the scope:</strong> Number of data sources, complexity of the metrics, whether custom data pipelines are needed, and dashboard tool choice. We confirm all of this before scoping.
+    </div>
+
+    <div class="pack-cta" style="margin-top:40px;">
+      <div class="pack-cta-text">
+        <strong>Ready to see your business clearly?</strong>
+        <p>Book a free 30-min call. We'll identify your most important KPIs and confirm your data is dashboardable.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="book-a-call.html" class="btn btn-accent">Book a Call</a>
+        <a href="quote.html" class="btn btn-outline">Request a Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PACK 4: TAILORED SOFTWARE ── -->
+<section class="pack-section" id="tailored-software">
+  <div class="container">
+    <div class="pack-header">
+      <div class="pack-title-area">
+        <span class="section-label">Pack 03</span>
+        <h2>Tailored Software Build</h2>
+        <p style="font-size:18px;max-width:560px;margin-top:12px;">When nothing off-the-shelf fits, we build it. Internal tools, client portals, and custom apps — built for exactly how your business works.</p>
+      </div>
+      <div class="pack-price-card">
+        <div class="pack-price-label">Custom quote</div>
+        <div class="pack-price-note">Scope confirmed before you pay.</div>
+        <div class="pack-duration">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          4–8 weeks
+        </div>
+        <a href="book-a-call.html" class="btn btn-accent" style="width:100%;justify-content:center;margin-top:16px;">Book a Call →</a>
+      </div>
+    </div>
+
+    <div class="use-cases">
+      <h4>Sample use cases</h4>
+      <div class="use-case-cards">
+        <div class="use-case-card">
+          <h5>Client portal</h5>
+          <p>A branded portal where your clients log in, see project status, upload documents, and communicate — without emailing back and forth.</p>
+        </div>
+        <div class="use-case-card">
+          <h5>Internal operations tool</h5>
+          <p>Custom job-tracking, scheduling, or dispatch software that replaces a spreadsheet your team has outgrown.</p>
+        </div>
+        <div class="use-case-card">
+          <h5>Custom app for your workflow</h5>
+          <p>A purpose-built tool configured to your exact business process — not a generic SaaS you're bending to fit.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pack-grid">
+      <div class="pack-block">
+        <h4>What's included</h4>
+        <ul>
+          <li>Scoping sessions + requirements doc</li>
+          <li>UI/UX design for all screens</li>
+          <li>Full-stack development</li>
+          <li>Integration with your existing tools</li>
+          <li>QA testing across devices and browsers</li>
+          <li>Deployment and handoff documentation</li>
+          <li>30 days of post-launch support</li>
+        </ul>
+      </div>
+      <div class="pack-block not-included">
+        <h4>What's not included</h4>
+        <ul>
+          <li>Consumer iOS/Android apps</li>
+          <li>Enterprise-scale deployments (1,000+ users)</li>
+          <li>Ongoing feature development (available as retainer)</li>
+          <li>Server infrastructure costs (client-managed)</li>
+        </ul>
+      </div>
+      <div class="pack-block outcomes" style="grid-column:span 2;">
+        <h4>Expected outcomes</h4>
+        <ul>
+          <li>A tool your team actually uses — because it fits how you work</li>
+          <li>Elimination of the spreadsheet or workaround it replaces</li>
+          <li>Faster turnaround on the process it supports</li>
+          <li>A system you own — no vendor lock-in, no per-seat pricing surprises</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="factors-row">
+      <strong>What affects the scope:</strong> Number of screens and features, complexity of business logic, number of integrations, and whether a design system needs to be built from scratch. We scope everything before you commit.
+    </div>
+
+    <div class="pack-cta" style="margin-top:40px;">
+      <div class="pack-cta-text">
+        <strong>Have something specific in mind?</strong>
+        <p>Book a call and walk us through it. We'll tell you honestly what it takes to build it right.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="book-a-call.html" class="btn btn-accent">Book a Call</a>
+        <a href="quote.html" class="btn btn-outline">Request a Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PACK 5: WEBSITE DESIGN & BUILD ── -->
+<section class="pack-section" id="website-design">
+  <div class="container">
+    <div class="pack-header">
+      <div class="pack-title-area">
+        <span class="section-label">Pack 04</span>
+        <h2>Website Design & Build</h2>
+        <p style="font-size:18px;max-width:560px;margin-top:12px;">A custom website that reflects your business — not a template everyone else is using. Designed, built, and easy for you to update.</p>
+      </div>
+      <div class="pack-price-card">
+        <div class="pack-price-label">Custom quote</div>
+        <div class="pack-price-note">Optional ongoing support available.</div>
+        <div class="pack-duration">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          2–4 weeks
+        </div>
+        <a href="book-a-call.html" class="btn btn-accent" style="width:100%;justify-content:center;margin-top:16px;">Book a Call →</a>
+      </div>
+    </div>
+
+    <div class="use-cases">
+      <h4>Sample use cases</h4>
+      <div class="use-case-cards">
+        <div class="use-case-card">
+          <h5>Professional services firm</h5>
+          <p>A clean, credibility-building website that clearly communicates what you do, who you serve, and how to get started.</p>
+        </div>
+        <div class="use-case-card">
+          <h5>Healthcare clinic</h5>
+          <p>Patient-facing site with location info, services, insurance accepted, and online appointment booking integration.</p>
+        </div>
+        <div class="use-case-card">
+          <h5>B2B business launch</h5>
+          <p>A new company site built fast — designed to convert visitors into leads with clear messaging and one primary CTA.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pack-grid">
+      <div class="pack-block">
+        <h4>What's included</h4>
+        <ul>
+          <li>Custom design (not a template)</li>
+          <li>Up to 8 pages designed and built</li>
+          <li>CMS setup so you can edit content yourself</li>
+          <li>Mobile-responsive across all devices</li>
+          <li>Basic SEO setup (meta tags, semantic HTML, schema)</li>
+          <li>Contact form with email delivery</li>
+          <li>30 days of post-launch support</li>
+        </ul>
+      </div>
+      <div class="pack-block not-included">
+        <h4>What's not included</h4>
+        <ul>
+          <li>Copywriting (we can recommend partners)</li>
+          <li>Photography or custom illustrations</li>
+          <li>E-commerce over 100 products</li>
+          <li>Ongoing SEO or marketing services</li>
+          <li>More than 8 pages (add-on)</li>
+        </ul>
+      </div>
+      <div class="pack-block outcomes" style="grid-column:span 2;">
+        <h4>Expected outcomes</h4>
+        <ul>
+          <li>A site that looks and feels like your business — not every other company in your industry</li>
+          <li>Fast load times and clean mobile experience</li>
+          <li>Easy for non-technical team members to update</li>
+          <li>A foundation you can grow — add features and pages as your business grows</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="factors-row">
+      <strong>What affects the scope:</strong> Number of pages, complexity of design, whether a CMS integration is needed, and any special functionality (booking, intake forms, portals). Ongoing maintenance retainer pricing is scoped per project.
+    </div>
+
+    <div class="pack-cta" style="margin-top:40px;">
+      <div class="pack-cta-text">
+        <strong>Ready for a website that actually fits?</strong>
+        <p>Book a call and tell us what you have today. We'll show you what's possible.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="book-a-call.html" class="btn btn-accent">Book a Call</a>
+        <a href="quote.html" class="btn btn-outline">Request a Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCOPE BOUNDARIES -->
+<section style="background:var(--bg);padding:var(--section-pad) 0;">
+  <div class="container">
+    <span class="section-label">Scope boundaries</span>
+    <div class="section-head">
+      <h2>What we don't do.</h2>
+      <p>We'd rather be honest upfront than take on something we can't do well.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:720px;" class="reveal">
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-md);padding:20px 24px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="width:20px;height:20px;flex-shrink:0;margin-top:2px;color:#ef4444;">
+          <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <strong style="font-size:15px;">Mobile apps</strong>
+          <p style="font-size:14px;margin-top:4px;">Consumer iOS/Android apps. We build web-based tools, not native mobile apps.</p>
+        </div>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-md);padding:20px 24px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="width:20px;height:20px;flex-shrink:0;margin-top:2px;color:#ef4444;">
+          <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <strong style="font-size:15px;">Enterprise rollouts</strong>
+          <p style="font-size:14px;margin-top:4px;">Deployments for 1,000+ employees. We're built for small and mid-sized teams.</p>
+        </div>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-md);padding:20px 24px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="width:20px;height:20px;flex-shrink:0;margin-top:2px;color:#ef4444;">
+          <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <strong style="font-size:15px;">Marketing & SEO</strong>
+          <p style="font-size:14px;margin-top:4px;">Paid ads, content marketing, or SEO campaigns. We build the systems, not the campaigns.</p>
+        </div>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-md);padding:20px 24px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="width:20px;height:20px;flex-shrink:0;margin-top:2px;color:#ef4444;">
+          <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <strong style="font-size:15px;">Large e-commerce</strong>
+          <p style="font-size:14px;margin-top:4px;">E-commerce platforms with more than 1,000 SKUs. Smaller storefronts are fine.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-mark">E&</div>
+          E&E Solutions
+        </div>
+        <p class="footer-tagline">Operations and web solutions, tailored for small business. Serving clients remotely across the US.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#operations-audit">Operations Audit</a></li>
+          <li><a href="#analytics-dashboard">Analytics & Dashboard</a></li>
+          <li><a href="#tailored-software">Tailored Software</a></li>
+          <li><a href="#website-design">Website Design</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get started</h4>
+        <ul>
+          <li><a href="book-a-call.html">Book a Strategy Call</a></li>
+          <li><a href="quote.html">Request a Quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 E&E Solutions LLC. All rights reserved.</span>
+      <div style="display:flex;gap:24px;">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Sticky services nav active state
+  const sections = document.querySelectorAll('.pack-section');
+  const navLinks = document.querySelectorAll('.snav-link');
+  const stickyNav = document.querySelector('.services-nav');
+  const navOffset = 60 + (stickyNav ? stickyNav.offsetHeight : 0) + 20;
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - navOffset) current = s.id;
+    });
+    navLinks.forEach(l => {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+</body>
+</html>
